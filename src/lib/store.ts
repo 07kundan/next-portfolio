@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import playgroundSlice from "./features/playground.slice";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      playgroud: playgroundSlice,
+    },
   });
 };
 
