@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import PlayGround from "@/components/playground/PlayGround";
+import { HeroHighlightComponent } from "@/components/hero-highlight/HeroHighlightComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="hydrated">
+      <body className={`dark text-blue-500 ${inter.className}`}>
+        <HeroHighlightComponent classname="h-screen fixed top-0 "></HeroHighlightComponent>
+        <div className="flex overflow-y-auto">
+          <div className="w-[38vw] h-screen z-10">
+            <PlayGround className="fixed top-0 left-0 w-[38vw] h-screen bg-zinc-950/60 border-r-[1.2vw] border-zinc-950" />
+          </div>
+          <div className="w-[62vw] h-screen pl-4 z-10">{children}</div>
+        </div>
+      </body>
     </html>
   );
 }
