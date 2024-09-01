@@ -4,6 +4,7 @@ import "./globals.css";
 import { HeroHighlightComponent } from "@/components/hero-highlight/HeroHighlightComponent";
 import PlayGroundComponent from "@/components/playground/PlayGroundComponent";
 import App from "@/components/app";
+import ChildrenComponent from "@/components/child-component/ChildrenComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({
             <div className="">
               <PlayGroundComponent className="fixed top-0 left-0  bg-zinc-950/60 border-r-[1.2vw] border-zinc-950" />
             </div>
-            <div className="">{children}</div>
+            <ChildrenComponent>{children}</ChildrenComponent>
           </App>
         </div>
 

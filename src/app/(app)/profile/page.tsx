@@ -31,7 +31,8 @@ function page() {
 
   return (
     <div className=" py-8">
-      <FocusCards cards={cards} />
+      {/* <FocusCards cards={cards} /> */}
+      Profile
     </div>
   );
 }

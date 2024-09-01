@@ -1,13 +1,20 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import { useRef } from "react";
-import { motion, useDragControls } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+import { RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
 
 function DragPlate({ className }: { className: string }) {
   const dragableArea = useRef<HTMLDivElement>(null);
   const [svgBounds, setSvgBounds] = useState<DOMRect[]>([]);
   const router = useRouter();
+
+  const svgPositionTrigger: Boolean = useSelector(
+    (state: RootState) => state.svgPosition.triggered
+  );
+  const pathname = usePathname();
 
   useEffect(() => {
     if (dragableArea.current) {
@@ -19,62 +26,60 @@ function DragPlate({ className }: { className: string }) {
       // boundsArray.forEach((arr) => console.log(arr));
       setSvgBounds(boundsArray);
     }
-  }, []);
+  }, [svgPositionTrigger, pathname]);
 
   const handleDrag = (event: MouseEvent, info: any) => {
+    console.log(svgBounds);
     const dragElement = event.target as HTMLDivElement;
     const dragBounds = dragElement.getBoundingClientRect();
 
     if (
-      dragBounds.right <= svgBounds[0].right &&
-      dragBounds.bottom <= svgBounds[0].bottom
-      // dragBounds.top <= svgBounds[0].top
-      // dragBounds.left >= svgBounds[0].left
+      (dragBounds.right <= svgBounds[0].right &&
+        dragBounds.top <= svgBounds[0].bottom) ||
+      (dragBounds.top <= svgBounds[0].bottom &&
+        dragBounds.right <= svgBounds[0].right)
     ) {
       console.log(svgBounds[0]);
       console.log("profile");
       router.push("/profile");
     } else if (
-      // dragBounds.right <= svgBounds[1].right &&
-      dragBounds.left >= svgBounds[1].left &&
-      dragBounds.bottom <= svgBounds[1].bottom
-      // dragBounds.top >= svgBounds[1].top
+      (dragBounds.left >= svgBounds[1].left &&
+        dragBounds.bottom <= svgBounds[1].bottom) ||
+      (dragBounds.left >= svgBounds[1].left &&
+        dragBounds.top <= svgBounds[0].bottom)
     ) {
       console.log(svgBounds[1]);
       console.log("Skills");
       router.push("/skills");
     } else if (
-      // dragBounds.right <= svgBounds[2].right &&
-      dragBounds.top >= svgBounds[2].top &&
-      dragBounds.left >= svgBounds[2].left
-      // dragBounds.bottom >= svgBounds[2].bottom
+      (dragBounds.bottom >= svgBounds[2].bottom &&
+        dragBounds.left >= svgBounds[2].left) ||
+      (dragBounds.left >= svgBounds[2].left &&
+        dragBounds.bottom >= svgBounds[2].top)
     ) {
       console.log(svgBounds[2]);
       console.log("Projects");
       router.push("/projects");
     } else if (
-      dragBounds.right <= svgBounds[3].right &&
-      dragBounds.top >= svgBounds[3].top
-      // dragBounds.left >= svgBounds[3].left &&
-      // dragBounds.bottom >= svgBounds[3].bottom
+      (dragBounds.right <= svgBounds[3].right &&
+        dragBounds.top <= svgBounds[3].bottom) ||
+      (dragBounds.bottom >= svgBounds[3].top &&
+        dragBounds.right <= svgBounds[3].right)
     ) {
-      console.log(svgBounds[3]);
+      console.log("svg bounds -: ", svgBounds[3]);
+      console.log("drag bounds -: ", dragBounds);
       console.log("What people says");
       router.push("/what-people-says");
     } else {
+      console.log(svgBounds);
+      console.log("dragbounds - :", dragBounds);
       console.log("none");
     }
-    // svgBounds.forEach((bounds, index) => {
-    //   if (
-    //     dragBounds.left < bounds.right &&
-    //     dragBounds.right > bounds.left &&
-    //     dragBounds.top < bounds.bottom &&
-    //     dragBounds.bottom > bounds.top
-    //   ) {
-    //     console.log(`Dragging over element ${index + 1}`);
-    //     // You can trigger any specific event here, like changing state or calling a function
-    //   }
-    // });
+  };
+
+  const handleDragOver = (event: React.DragEvent<SVGTextElement>) => {
+    event.preventDefault();
+    console.log("draggedOver");
   };
 
   return (
@@ -117,7 +122,7 @@ function DragPlate({ className }: { className: string }) {
             Profile
           </textPath>
         </text>
-        <text className="text-xs fill-amber-500">
+        <text onDragOver={handleDragOver} className="text-xs fill-amber-500">
           <textPath href="#circlePath2" startOffset="20%">
             Skills
           </textPath>
@@ -142,7 +147,7 @@ function DragPlate({ className }: { className: string }) {
         onDragEnd={handleDrag}
         className="bg-black absolute top-1/2 left-1/2  w-1/5 h-1/5 rounded-full text-white flex justify-center items-center pointer-events-auto"
       >
-        Tap/Drag
+        Drag
       </motion.div>
     </div>
   );

@@ -40,7 +40,7 @@ import React, { useEffect, useState } from "react";
 // }
 
 function page() {
-  return <div>page</div>;
+  return <div>Skills</div>;
 }
 
 export default page;

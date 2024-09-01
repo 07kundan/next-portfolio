@@ -7,9 +7,18 @@ const playgroundSlice = createSlice({
   },
 
   reducers: {
-    setIsActive: (state) => {
-      state.isActive = !state.isActive;
-      // console.log(state.isActive);
+    setIsActive: (state, action) => {
+      // console.log("payload", action.payload);
+
+      if (action.payload === "toggle") {
+        state.isActive = !state.isActive;
+      } else {
+        if (action.payload === "/") {
+          state.isActive = true;
+        } else {
+          state.isActive = false;
+        }
+      }
     },
   },
 });

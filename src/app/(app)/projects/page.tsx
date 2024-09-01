@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 function Page() {
   const dragableArea = useRef(null);
 
-  return <div className="">page</div>;
+  return <div className="">Projects</div>;
 }
 
 export default Page;

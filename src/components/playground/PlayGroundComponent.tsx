@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { AppDispatch, RootState } from "@/lib/store";
 import { setIsActive } from "@/lib/features/playground.slice";
 import { useDispatch, useSelector } from "react-redux";
+import { toggleTriggered } from "@/lib/features/svgPosition.slice";
 
 const formSchmea = z.object({
   answerBox: z
@@ -163,12 +164,16 @@ function SubComponent({
       e.preventDefault();
     }
   }
-  function handleClosePlayGround() {
-    dispatch(setIsActive());
+  function handleTogglePlayground() {
+    dispatch(setIsActive("toggle"));
   }
+  const handleAnimationEnd = () => {
+    dispatch(toggleTriggered());
+  };
 
   return (
     <div
+      onAnimationEnd={handleAnimationEnd}
       style={{
         transitionProperty: "all",
         transitionTimingFunction: "cubicBezier(0.4, 0, 0.2, 1)",
@@ -188,9 +193,9 @@ function SubComponent({
         }}
         className={cn(
           playgroundIsActive ? "rotate-0" : "-rotate-180",
-          "absolute right-0 top-1/2 z-40"
+          "absolute -right-2 p-2 top-1/2 z-40 pointer-events-auto"
         )}
-        onClick={handleClosePlayGround}
+        onClick={handleTogglePlayground}
       >
         <ArrowLeftFromLine />
       </button>
@@ -210,7 +215,7 @@ function SubComponent({
           </h1>
           <h2 className="flex gap-3 justify-center py- text-xl py-2 ">
             Type the string: {stringToCheck}{" "}
-            <button onClick={toSetGuessString}>
+            <button onClick={toSetGuessString} className="pointer-events-auto">
               <RefreshCcw />
             </button>
           </h2>
@@ -271,7 +276,7 @@ function SubComponent({
                   );
                 })}
               <Button
-                className="px-10 text-lg hover:bg-zinc-950 hover:text-blue-700"
+                className="px-10 text-lg hover:bg-zinc-950 hover:text-blue-700 pointer-events-auto"
                 variant={"outline"}
                 type="submit"
               >
