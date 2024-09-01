@@ -9,7 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import DragPlate from "../drag-plate/DragPlate";
 import { toggleTriggered } from "@/lib/features/svgPosition.slice";
 
-function ChildrenComponent({ children }: { children: React.ReactNode }) {
+function ChildrenComponent({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className: string;
+}) {
   const [dragPlateIsActive, setDragPlateIsActive] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const playgroundIsActive: Boolean = useSelector(
@@ -18,8 +24,6 @@ function ChildrenComponent({ children }: { children: React.ReactNode }) {
   const dispatch = useDispatch();
   const pathname = usePathname();
   useEffect(() => {
-    // console.log("printing");
-    // console.log(pathname);
     if (pathname === "/") {
       setIsVisible(false);
     } else {
@@ -45,7 +49,8 @@ function ChildrenComponent({ children }: { children: React.ReactNode }) {
       }}
       className={cn(
         playgroundIsActive ? "w-[62vw]" : "w-[93vw]",
-        "absolute right-0 h-screen"
+        "absolute right-0 h-screen",
+        className
       )}
     >
       {/*  bottom dragPlate */}

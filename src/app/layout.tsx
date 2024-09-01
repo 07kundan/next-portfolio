@@ -20,13 +20,13 @@ export default function RootLayout({
         <div className="relative top-0 pointer-events-none">
           <App>
             <div className="">
-              <PlayGroundComponent className="fixed top-0 left-0  bg-zinc-950/60 border-r-[1.2vw] border-zinc-950" />
+              <PlayGroundComponent className="fixed top-0 left-0 border-r-4 border-zinc-950 bg-gradient-to-bl from-purple-800/35 via-amber-900/20 via-80% to-transparent" />
             </div>
-            <ChildrenComponent>{children}</ChildrenComponent>
+            <ChildrenComponent className="bg-gradient-to-br from-purple-800/30 via-amber-900/25 via-75% to-blue-700/20">
+              {children}
+            </ChildrenComponent>
           </App>
         </div>
-
-        {/* <DragPlate className="" /> */}
       </body>
     </html>
   );

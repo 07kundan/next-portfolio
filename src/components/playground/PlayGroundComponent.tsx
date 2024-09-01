@@ -158,7 +158,7 @@ function SubComponent({
     if (e.key && e.key.length === 1 && e.key.match(/[a-zA-Z]/)) {
       const randomChar = String.fromCharCode(
         Math.floor(Math.random() * 26) + 65
-      ); // Generate a random lowercase letter
+      ); // Generate a random UpperCase letter
       const newValue = field.value + randomChar;
       field.onChange(newValue);
       e.preventDefault();
@@ -259,7 +259,6 @@ function SubComponent({
                                 placeholder="Type here !!"
                                 {...field}
                                 onKeyDown={(e) => {
-                                  // console.log(e.key);
                                   if (randomNum === index + 1) {
                                     handleRandomChar(e, field);
                                   }

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { animate } from "framer-motion";
 
 const svgPositionSlice = createSlice({
   name: "svgPosition",
