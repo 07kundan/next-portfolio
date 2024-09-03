@@ -18,8 +18,8 @@ function DragPlate({ className }: { className: string }) {
 
   useEffect(() => {
     if (dragableArea.current) {
+      dragableArea.current.style.transform = "rotate(360deg)";
       const svgElements = dragableArea.current.querySelectorAll("text");
-      // console.log(svgElements);
       const boundsArray = Array.from(svgElements).map((el) =>
         el.getBoundingClientRect()
       );
@@ -29,7 +29,7 @@ function DragPlate({ className }: { className: string }) {
   }, [svgPositionTrigger, pathname]);
 
   const handleDrag = (event: MouseEvent, info: any) => {
-    console.log(svgBounds);
+    // console.log(svgBounds);
     const dragElement = event.target as HTMLDivElement;
     const dragBounds = dragElement.getBoundingClientRect();
 
@@ -39,8 +39,6 @@ function DragPlate({ className }: { className: string }) {
       (dragBounds.top <= svgBounds[0].bottom &&
         dragBounds.right <= svgBounds[0].right)
     ) {
-      console.log(svgBounds[0]);
-      console.log("profile");
       router.push("/profile");
     } else if (
       (dragBounds.left >= svgBounds[1].left &&
@@ -48,8 +46,6 @@ function DragPlate({ className }: { className: string }) {
       (dragBounds.left >= svgBounds[1].left &&
         dragBounds.top <= svgBounds[0].bottom)
     ) {
-      console.log(svgBounds[1]);
-      console.log("Skills");
       router.push("/skills");
     } else if (
       (dragBounds.bottom >= svgBounds[2].bottom &&
@@ -57,8 +53,6 @@ function DragPlate({ className }: { className: string }) {
       (dragBounds.left >= svgBounds[2].left &&
         dragBounds.bottom >= svgBounds[2].top)
     ) {
-      console.log(svgBounds[2]);
-      console.log("Projects");
       router.push("/projects");
     } else if (
       (dragBounds.right <= svgBounds[3].right &&
@@ -66,24 +60,15 @@ function DragPlate({ className }: { className: string }) {
       (dragBounds.bottom >= svgBounds[3].top &&
         dragBounds.right <= svgBounds[3].right)
     ) {
-      console.log("svg bounds -: ", svgBounds[3]);
-      console.log("drag bounds -: ", dragBounds);
-      console.log("What people says");
       router.push("/what-people-says");
-    } else {
-      console.log(svgBounds);
-      console.log("dragbounds - :", dragBounds);
-      console.log("none");
     }
-  };
-
-  const handleDragOver = (event: React.DragEvent<SVGTextElement>) => {
-    event.preventDefault();
-    console.log("draggedOver");
   };
 
   return (
     <div
+      style={{
+        transitionDuration: "600ms",
+      }}
       ref={dragableArea}
       className={` relative w-[30vw] h-[30vw] rounded-full overflow-hidden ${className}`}
     >
@@ -122,7 +107,7 @@ function DragPlate({ className }: { className: string }) {
             Profile
           </textPath>
         </text>
-        <text onDragOver={handleDragOver} className="text-xs fill-amber-500">
+        <text className="text-xs fill-amber-500">
           <textPath href="#circlePath2" startOffset="20%">
             Skills
           </textPath>
@@ -145,7 +130,7 @@ function DragPlate({ className }: { className: string }) {
         dragSnapToOrigin={true}
         dragListener={true}
         onDragEnd={handleDrag}
-        className="bg-black absolute top-1/2 left-1/2  w-1/5 h-1/5 rounded-full text-white flex justify-center items-center pointer-events-auto"
+        className="bg-black absolute top-1/2 left-1/2  w-1/5 h-1/5 rounded-full text-white flex justify-center items-center pointer-events-auto cursor-pointer"
       >
         Drag
       </motion.div>

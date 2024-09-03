@@ -1,13 +1,13 @@
-import "server-only";
+// import "server-only";
 
 import { createClient, type QueryParams } from "next-sanity";
 import ImageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 export const client = createClient({
-  projectId: "REPLACE_WITH_YOUR_PROJECT_ID",
-  dataset: "production",
-  apiVersion: "2024-01-01",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  apiVersion: "2024-09-02",
   useCdn: false,
 });
 

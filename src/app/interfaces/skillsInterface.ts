@@ -1,31 +1,33 @@
-interface AssestReference {
+interface AssetReference {
   _ref: string;
   _type: "reference";
 }
 
 interface Image {
-  assest: AssestReference;
   _type: "image";
+  asset: AssetReference;
 }
 
-interface Skill {
-  name: string;
-  logo: Image;
-  key: string;
-}
-
-interface Tool {
+export interface Tool {
   name: string;
   logo: Image;
   _key: string;
+  _type: "tool";
 }
 
-export interface Skills {
+export interface Skill {
+  name: string;
+  logo: Image;
+  _key: string;
   _type: "skill";
-  _id: string;
-  _updatedAt: string;
-  tools: Tool[];
+}
+
+export interface skillSchema {
   skills: Skill[];
+  tools: Tool[];
   _createdAt: string;
+  _id: string;
   _rev: string;
+  _type: string;
+  _updatedAt: string;
 }
