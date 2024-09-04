@@ -8,22 +8,15 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
+import HeadComponent from "./headComponent";
 
 function SkillList({ data }: { data: skillSchema }) {
   const playgroundIsActive: Boolean = useSelector(
     (state: RootState) => state.playgroud.isActive
   );
   return (
-    <div
-      className={cn(
-        playgroundIsActive ? "px-[3.2vw]" : "px-[7vw]",
-        "max-h-screen"
-      )}
-    >
-      <h1 className="text-center text-pretty my-[5vh] p-4">
-        {" "}
-        | My skills | Tools |
-      </h1>
+    <div className={cn("max-h-screen")}>
+      <HeadComponent text={"| My skills | Tools |"} />
       <div
         className={cn(
           playgroundIsActive ? "gap-[3vw]" : "gap-[4vw]",
@@ -33,7 +26,7 @@ function SkillList({ data }: { data: skillSchema }) {
         {data?.skills?.map((item, index) => (
           <motion.div
             variants={{
-              initial: { y: 40, opacity: 0.3 },
+              initial: { y: 40, opacity: 0.1 },
               end: { y: 0, opacity: 1 },
             }}
             initial="initial"
@@ -66,7 +59,7 @@ function SkillList({ data }: { data: skillSchema }) {
         {data?.tools?.map((item, index) => (
           <motion.div
             variants={{
-              initial: { y: 40, opacity: 0.3 },
+              initial: { y: 40, opacity: 0.1 },
               end: { y: 0, opacity: 1 },
             }}
             initial="initial"
@@ -89,7 +82,8 @@ function SkillList({ data }: { data: skillSchema }) {
                   alt={item.name}
                   width={100}
                   height={100}
-                  className="pointer-events-auto group-hover:scale-125"
+                  // layout="fill"
+                  className="pointer-events-auto bg--50 group-hover:scale-125"
                 />
               </div>
             </div>

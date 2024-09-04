@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import playgroundSlice from "./features/playground.slice";
 import svgPositionSlice from "./features/svgPosition.slice";
+import themeSlice from "./features/theme.slice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       playgroud: playgroundSlice,
       svgPosition: svgPositionSlice,
+      themeStatus: themeSlice,
     },
   });
 };

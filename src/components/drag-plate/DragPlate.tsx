@@ -70,7 +70,7 @@ function DragPlate({ className }: { className: string }) {
         transitionDuration: "600ms",
       }}
       ref={dragableArea}
-      className={` relative w-[30vw] h-[30vw] rounded-full overflow-hidden ${className}`}
+      className={` relative w-[30vw] h-[30vw] rounded-full overflow-hidden ${className} `}
     >
       <svg viewBox="0 0 200 200" className="circle-svg bg">
         <path
@@ -130,7 +130,7 @@ function DragPlate({ className }: { className: string }) {
         dragSnapToOrigin={true}
         dragListener={true}
         onDragEnd={handleDrag}
-        className="bg-black absolute top-1/2 left-1/2  w-1/5 h-1/5 rounded-full text-white flex justify-center items-center pointer-events-auto cursor-pointer"
+        className="bg-black absolute top-1/2 left-1/2 w-1/6 h-1/6 text-xs rounded-full flex justify-center items-center pointer-events-auto cursor-pointer"
       >
         Drag
       </motion.div>

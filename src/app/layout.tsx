@@ -17,10 +17,10 @@ export default function RootLayout({
         <HeroHighlightComponent classname="h-screen fixed top-0 pointer-events-auto"></HeroHighlightComponent>
         <div className="relative top-0 pointer-events-none">
           <App>
-            <div className="">
-              <PlayGroundComponent className="fixed top-0 left-0 border-r-4 border-zinc-800 bg-gradiento-bl from-purple-800/35 via-amber-900/20 via-80% to-transparent bg-zinc-950" />
+            <div>
+              <PlayGroundComponent className="fixed top-0 left-0 border-r-4 border-zinc-800 bg-zinc-950" />
             </div>
-            <ChildrenComponent className="bg-gradientto-br bg-zinc-950/70 from-purple-800/30 via-amber-900/25 via-75% to-blue-700/20">
+            <ChildrenComponent className=" bg-zinc-950/60 ">
               {children}
             </ChildrenComponent>
           </App>

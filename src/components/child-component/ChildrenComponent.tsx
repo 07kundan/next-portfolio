@@ -1,13 +1,40 @@
 "use client";
+import { CgMail } from "react-icons/cg";
+import { SiLinkedin } from "react-icons/si";
+import { VscGithub } from "react-icons/vsc";
+import { FaXTwitter } from "react-icons/fa6";
 import { setIsActive } from "@/lib/features/playground.slice";
 import { RootState } from "@/lib/store";
 import { cn } from "@/lib/utils";
-import { ArrowDown, ArrowUpToLine } from "lucide-react";
+import { ArrowDown, MoonIcon, SunDimIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DragPlate from "../drag-plate/DragPlate";
 import { toggleTriggered } from "@/lib/features/svgPosition.slice";
+import Link from "next/link";
+import Navbar from "./Navbar";
+import { toggleTheme } from "@/lib/features/theme.slice";
+import { IconContext } from "react-icons/lib";
+
+const IconsLinks = [
+  {
+    Icon: <CgMail />,
+    link: "",
+  },
+  {
+    Icon: <VscGithub />,
+    link: "",
+  },
+  {
+    Icon: <FaXTwitter />,
+    link: "",
+  },
+  {
+    Icon: <SiLinkedin />,
+    link: "",
+  },
+];
 
 function ChildrenComponent({
   children,
@@ -18,8 +45,11 @@ function ChildrenComponent({
 }) {
   const [dragPlateIsActive, setDragPlateIsActive] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const playgroundIsActive: Boolean = useSelector(
+  const playgroundIsActive: boolean = useSelector(
     (state: RootState) => state.playgroud.isActive
+  );
+  const theme: string = useSelector(
+    (state: RootState) => state.themeStatus.theme
   );
   const dispatch = useDispatch();
   const pathname = usePathname();
@@ -32,6 +62,10 @@ function ChildrenComponent({
     setDragPlateIsActive(false);
     dispatch(setIsActive(pathname));
   }, [pathname]);
+
+  const handleTheme = () => {
+    dispatch(toggleTheme());
+  };
 
   const handleToggle = () => {
     setDragPlateIsActive((prev) => !prev);
@@ -50,11 +84,36 @@ function ChildrenComponent({
         transitionDuration: "400ms",
       }}
       className={cn(
-        playgroundIsActive ? "w-[62vw]" : "w-[93vw]",
-        "absolute right-0 h-screen",
+        playgroundIsActive ? "w-[62vw] " : "w-[93vw] ",
+        "absolute right-0 min-h-screen pt-10 ",
         className
       )}
     >
+      <span className="w-1 h-[34vh] bg-zinc-800 absolute top-0 left-4 rounded-full"></span>
+      <text className="absolute top-[49vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-30">
+        kundankumarratur@gmail.com
+      </text>
+
+      <div className="absolute right-6 bottom-6 space-y-1 group pointer-events-auto">
+        <IconContext.Provider value={{ className: "text-lg" }}>
+          {IconsLinks.map((item, index) => (
+            <Link
+              href={item.link}
+              id={`${index}`}
+              className="h-10 w-10  items-center justify-center border rounded-full bg-zinc-900  hidden group-hover:flex group-hover:animate-accordion-down"
+            >
+              {item.Icon}
+            </Link>
+          ))}
+          <button
+            onClick={handleTheme}
+            className=" w-10 h-10 flex items-center justify-center border rounded-full bg-zinc-900"
+          >
+            {theme === "dark" ? <SunDimIcon /> : <MoonIcon />}
+          </button>
+        </IconContext.Provider>
+      </div>
+
       {/*  bottom dragPlate */}
       <div className={cn(isVisible ? "block" : "hidden")}>
         <div
@@ -127,7 +186,24 @@ function ChildrenComponent({
         </div>
       </div>
 
-      <div className="">{children}</div>
+      <Navbar
+        className={cn(
+          playgroundIsActive ? "w-[62vw] px-[2vw]" : "w-[93vw] px-[5vw]",
+          "fixed top-4"
+        )}
+        dragPlateIsActive={dragPlateIsActive}
+        pathname={pathname}
+      />
+
+      {/* page.tsx */}
+      <div
+        className={cn(
+          playgroundIsActive ? "px-[7vw]" : "px-[12vw]",
+          "bg-red-7"
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }
