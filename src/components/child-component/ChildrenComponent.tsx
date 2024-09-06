@@ -85,29 +85,33 @@ function ChildrenComponent({
       }}
       className={cn(
         playgroundIsActive ? "w-[62vw] " : "w-[93vw] ",
-        "absolute right-0 min-h-screen pt-10 ",
+        "absolute right-0 min-h-screen",
         className
       )}
     >
-      <span className="w-1 h-[34vh] bg-zinc-800 absolute top-0 left-4 rounded-full"></span>
-      <text className="absolute top-[49vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-30">
-        kundankumarratur@gmail.com
+      <span className="w-1 h-[22vh] bg-zinc-800 absolute top-0 left-4 rounded-full"></span>
+      <text className="absolute top-[37vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-30">
+        kundankumarratu@gmail.com
       </text>
 
-      <div className="absolute right-6 bottom-6 space-y-1 group pointer-events-auto">
-        <IconContext.Provider value={{ className: "text-lg" }}>
+      {/* social media links */}
+
+      <div className="fixed right-10 bottom-8 space-y-2 group pointer-events-auto">
+        <span className="w-1 h-[70vh] bg-zinc-800 absolute bottom-full right-1/2 translate-x-1/2 opacity-0 group-hover:transition-all group-hover:opacity-100"></span>
+        <span className="w-1 h-8 bg-zinc-800 absolute -bottom-8 right-1/2 translate-x-1/2 "></span>
+        <IconContext.Provider value={{ className: "text-lg text-yellow-300" }}>
           {IconsLinks.map((item, index) => (
             <Link
               href={item.link}
-              id={`${index}`}
-              className="h-10 w-10  items-center justify-center border rounded-full bg-zinc-900  hidden group-hover:flex group-hover:animate-accordion-down"
+              key={index}
+              className="h-10 w-10  items-center justify-center border rounded-full bg-red-950 flex opacity-15  group-hover:opacity-100  group-hover:transition-all group-hover:-translate-y-6"
             >
               {item.Icon}
             </Link>
           ))}
           <button
             onClick={handleTheme}
-            className=" w-10 h-10 flex items-center justify-center border rounded-full bg-zinc-900"
+            className=" w-10 h-10 flex items-center justify-center border rounded-full bg-red-950 text-yellow-300"
           >
             {theme === "dark" ? <SunDimIcon /> : <MoonIcon />}
           </button>
@@ -188,7 +192,7 @@ function ChildrenComponent({
 
       <Navbar
         className={cn(
-          playgroundIsActive ? "w-[62vw] px-[2vw]" : "w-[93vw] px-[5vw]",
+          playgroundIsActive ? "w-[62vw] px-[4vw]" : "w-[93vw] px-[6vw]",
           "fixed top-4"
         )}
         dragPlateIsActive={dragPlateIsActive}
@@ -198,8 +202,8 @@ function ChildrenComponent({
       {/* page.tsx */}
       <div
         className={cn(
-          playgroundIsActive ? "px-[7vw]" : "px-[12vw]",
-          "bg-red-7"
+          playgroundIsActive ? "px-[2vw] mx-8 ml-16" : "px-[4vw] mx-8 ml-32",
+          "relative h-screen pt-20 pb-12 "
         )}
       >
         {children}

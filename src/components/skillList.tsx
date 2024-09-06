@@ -15,12 +15,18 @@ function SkillList({ data }: { data: skillSchema }) {
     (state: RootState) => state.playgroud.isActive
   );
   return (
-    <div className={cn("max-h-screen")}>
-      <HeadComponent text={"| My skills | Tools |"} />
+    <>
+      <HeadComponent>
+        <text className="text-yellow-300 ">
+          <span className="text-red-700 text-3xl">|</span> My skills{" "}
+          <span className="text-red-700 text-3xl">|</span> Tools{" "}
+          <span className="text-red-700 text-3xl">|</span>
+        </text>
+      </HeadComponent>
       <div
         className={cn(
-          playgroundIsActive ? "gap-[3vw]" : "gap-[4vw]",
-          "inline-flex flex-wrap justify-center items-center"
+          playgroundIsActive ? "gap-[3vw] mx-[2vw]" : "gap-[4vw] mx-[6vw]",
+          "inline-flex flex-wrap justify-center items-center pt-8 "
         )}
       >
         {data?.skills?.map((item, index) => (
@@ -49,7 +55,7 @@ function SkillList({ data }: { data: skillSchema }) {
                   alt={item.name}
                   width={100}
                   height={100}
-                  className="pointer-events-auto group-hover:scale-125"
+                  className="pointer-events-auto transition-all group-hover:scale-125 group-hover:animate-pulse"
                 />
               </div>
             </div>
@@ -83,14 +89,14 @@ function SkillList({ data }: { data: skillSchema }) {
                   width={100}
                   height={100}
                   // layout="fill"
-                  className="pointer-events-auto bg--50 group-hover:scale-125"
+                  className="pointer-events-auto bg--50 group-hover:scale-125 group-hover:animate-pulse"
                 />
               </div>
             </div>
           </motion.div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 

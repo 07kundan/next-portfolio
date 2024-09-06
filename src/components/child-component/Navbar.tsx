@@ -21,7 +21,7 @@ function Navbar({
           transitionDuration: "0.7s",
         }}
         className={cn(
-          dragPlateIsActive || pathname === "/" ? "opacity-0" : "",
+          dragPlateIsActive || pathname === "/" ? "opacity-0" : "opacity-100",
           "flex items-center gap-4 tracking-tighter"
         )}
       >

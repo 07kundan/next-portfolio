@@ -209,7 +209,7 @@ function SubComponent({
         }}
         className={cn(playgroundIsActive ? "opacity-100" : "opacity-0")}
       >
-        <div className="">
+        <div>
           <h1 className="text-center font-bold text-2xl underline py-2">
             Playground
           </h1>
@@ -225,7 +225,7 @@ function SubComponent({
           </div>
         </div>
 
-        <div className="">
+        <div>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -250,7 +250,7 @@ function SubComponent({
                         name={inputName as AnswerBoxNames}
                         render={({ field }) => (
                           <FormItem className="w-[15vw]  space-y-1">
-                            <FormLabel className="">Type here</FormLabel>
+                            <FormLabel>Type here</FormLabel>
                             <FormControl>
                               <Input
                                 className="text-base pointer-events-auto placeholder:text-sm font-normal focus-visible:ring-blue-950 read-only:"

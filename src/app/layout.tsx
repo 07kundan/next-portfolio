@@ -14,8 +14,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="hydrated">
       <body className={`dark  ${inter.className}`}>
-        <HeroHighlightComponent classname="h-screen fixed top-0 pointer-events-auto"></HeroHighlightComponent>
-        <div className="relative top-0 pointer-events-none">
+        <HeroHighlightComponent classname="h-screen fixed top-0"></HeroHighlightComponent>
+        <div className="pointer-events-none">
           <App>
             <div>
               <PlayGroundComponent className="fixed top-0 left-0 border-r-4 border-zinc-800 bg-zinc-950" />

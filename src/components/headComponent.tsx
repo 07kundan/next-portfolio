@@ -3,20 +3,18 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { useSelector } from "react-redux";
 
-function HeadComponent({ text }: { text: string }) {
+function HeadComponent({ children }: { children: React.ReactNode }) {
   const playgroundIsActive: Boolean = useSelector(
     (state: RootState) => state.playgroud.isActive
   );
   return (
-    <h1
+    <span
       className={cn(
-        // playgroundIsActive ? "ml-[8vw]" : "",
-        "text-center text-pretty my-[2vh] p-4"
+        "absolute top-1/2 -translate-y-1/2 left-4 -rotate-90 -translate-x-1/2 text-xl text-nowrap"
       )}
     >
-      {" "}
-      {text}
-    </h1>
+      {children}
+    </span>
   );
 }
 
