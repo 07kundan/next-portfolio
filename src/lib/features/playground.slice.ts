@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const playgroundSlice = createSlice({
   name: "playground",
   initialState: {
-    isActive: false,
+    isActive: true,
   },
 
   reducers: {

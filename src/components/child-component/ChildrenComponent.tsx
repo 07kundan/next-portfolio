@@ -85,7 +85,7 @@ function ChildrenComponent({
       }}
       className={cn(
         playgroundIsActive ? "w-[62vw] " : "w-[93vw] ",
-        "absolute right-0 min-h-screen",
+        "",
         className
       )}
     >
@@ -96,15 +96,15 @@ function ChildrenComponent({
 
       {/* social media links */}
 
-      <div className="fixed right-10 bottom-8 space-y-2 group pointer-events-auto">
-        <span className="w-1 h-[70vh] bg-zinc-800 absolute bottom-full right-1/2 translate-x-1/2 opacity-0 group-hover:transition-all group-hover:opacity-100"></span>
+      <div className="fixed right-10 bottom-8 space-y-2 group/links pointer-events-auto">
+        <span className="w-1 h-[70vh] bg-zinc-800 absolute bottom-full right-1/2 translate-x-1/2 opacity-0 group-hover/links:transition-all group-hover/links:opacity-100"></span>
         <span className="w-1 h-8 bg-zinc-800 absolute -bottom-8 right-1/2 translate-x-1/2 "></span>
         <IconContext.Provider value={{ className: "text-lg text-yellow-300" }}>
           {IconsLinks.map((item, index) => (
             <Link
               href={item.link}
               key={index}
-              className="h-10 w-10  items-center justify-center border rounded-full bg-red-950 flex opacity-15  group-hover:opacity-100  group-hover:transition-all group-hover:-translate-y-6"
+              className="h-10 w-10  items-center justify-center border rounded-full bg-red-950 flex opacity-15  group-hover/links:opacity-100  group-hover/links:transition-all group-hover/links:-translate-y-6"
             >
               {item.Icon}
             </Link>
@@ -146,7 +146,7 @@ function ChildrenComponent({
             }}
             className={cn(
               dragPlateIsActive ? "border-none" : "border-t-2",
-              "w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2  border-zinc-800 rounded-lg  bg-zinc-950 pointer-events-auto"
+              "w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2  border-zinc-800 rounded-lg  bg-zinc-950 "
             )}
           >
             <div

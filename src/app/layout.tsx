@@ -14,17 +14,18 @@ export default function RootLayout({
   return (
     <html lang="en" className="hydrated">
       <body className={`dark  ${inter.className}`}>
-        <HeroHighlightComponent classname="h-screen fixed top-0"></HeroHighlightComponent>
-        <div className="pointer-events-none">
-          <App>
-            <div>
-              <PlayGroundComponent className="fixed top-0 left-0 border-r-4 border-zinc-800 bg-zinc-950" />
-            </div>
-            <ChildrenComponent className=" bg-zinc-950/60 ">
-              {children}
-            </ChildrenComponent>
-          </App>
-        </div>
+        <HeroHighlightComponent classname="h-screen fixed top-0 left-0">
+          <div className="pointer-events-none">
+            <App>
+              <div>
+                <PlayGroundComponent className="absolute top-0 left-0 border-r-4 border-zinc-800 bg-zinc-950" />
+              </div>
+              <ChildrenComponent className="absolute top-0 right-0">
+                {children}
+              </ChildrenComponent>
+            </App>
+          </div>
+        </HeroHighlightComponent>
       </body>
     </html>
   );

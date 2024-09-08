@@ -49,8 +49,8 @@ function SkillList({ data }: { data: skillSchema }) {
             key={index}
             className="  w-[13vh] h-[13vh] flex justify-center items-center "
           >
-            <div className="relative group pointer-events-auto cursor-pointer">
-              <span className=" bg-white/80 text-black px-3 py-1 text-xs whitespace-nowrap hidden group-hover:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm ">
+            <div className="relative group/item pointer-events-auto cursor-pointer">
+              <span className=" bg-zinc-400 text-black px-3 py-1 text-xs whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
                 {item.name}
               </span>
               <div className="w-[6vh] h-[6vh] flex items-center justify-center">
@@ -59,7 +59,8 @@ function SkillList({ data }: { data: skillSchema }) {
                   alt={item.name}
                   width={100}
                   height={100}
-                  className="pointer-events-auto transition-all group-hover:scale-125 group-hover:animate-pulse"
+                  // layout="fill"
+                  className="pointer-events-auto peer hover:scale-125 hover:animate-pulse"
                 />
               </div>
             </div>
@@ -82,8 +83,8 @@ function SkillList({ data }: { data: skillSchema }) {
             key={index}
             className="  w-[13vh] h-[13vh] flex justify-center items-center "
           >
-            <div className="relative group pointer-events-auto cursor-pointer">
-              <span className=" bg-zinc-400 text-black px-3 py-1 text-xs whitespace-nowrap hidden group-hover:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
+            <div className="relative group/item pointer-events-auto cursor-pointer">
+              <span className=" bg-zinc-400 text-black px-3 py-1 text-xs whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
                 {item.name}
               </span>
               <div className="w-[6vh] h-[6vh] flex items-center justify-center">
@@ -93,7 +94,7 @@ function SkillList({ data }: { data: skillSchema }) {
                   width={100}
                   height={100}
                   // layout="fill"
-                  className="pointer-events-auto bg--50 group-hover:scale-125 group-hover:animate-pulse"
+                  className="pointer-events-auto peer hover:scale-125 hover:animate-pulse"
                 />
               </div>
             </div>
