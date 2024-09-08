@@ -1,12 +1,8 @@
-"use client";
 import React from "react";
-import { useRef } from "react";
-import { motion } from "framer-motion";
+import ProjectComponent from "@/components/projectComponent";
 
 function Page() {
-  const dragableArea = useRef(null);
-
-  return <div>Projects</div>;
+  return <ProjectComponent />;
 }
 
 export default Page;

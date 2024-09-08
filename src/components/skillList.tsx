@@ -9,6 +9,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import HeadComponent from "./headComponent";
+import { SiHyperskill } from "react-icons/si";
+import { FaTools } from "react-icons/fa";
 
 function SkillList({ data }: { data: skillSchema }) {
   const playgroundIsActive: Boolean = useSelector(
@@ -17,11 +19,13 @@ function SkillList({ data }: { data: skillSchema }) {
   return (
     <>
       <HeadComponent>
-        <text className="text-yellow-300 ">
-          <span className="text-red-700 text-3xl">|</span> My skills{" "}
-          <span className="text-red-700 text-3xl">|</span> Tools{" "}
-          <span className="text-red-700 text-3xl">|</span>
-        </text>
+        <SiHyperskill className="text-red-700" />
+        <span className=" text-3xl">|</span>
+        <span className="text-red-700">My skills</span>
+        <span className=" text-3xl">|</span>
+        <span className="text-red-700">Tools</span>
+        <span className="text-3xl">|</span>
+        <FaTools className="text-red-700 text-xl" />
       </HeadComponent>
       <div
         className={cn(

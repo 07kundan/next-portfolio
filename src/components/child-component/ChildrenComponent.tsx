@@ -90,9 +90,9 @@ function ChildrenComponent({
       )}
     >
       <span className="w-1 h-[22vh] bg-zinc-800 absolute top-0 left-4 rounded-full"></span>
-      <text className="absolute top-[37vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-30">
+      <span className="absolute top-[37vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-30">
         kundankumarratu@gmail.com
-      </text>
+      </span>
 
       {/* social media links */}
 
