@@ -5,6 +5,7 @@ import PlayGroundComponent from "@/components/playground/PlayGroundComponent";
 import App from "@/components/app";
 import ChildrenComponent from "@/components/child-component/ChildrenComponent";
 import { inter } from "@/app/fonts/fonts";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -14,6 +15,27 @@ export default function RootLayout({
   return (
     <html lang="en" className="hydrated">
       <body className={`dark  ${inter.className}`}>
+        <Toaster
+          position="bottom-right"
+          reverseOrder={true}
+          toastOptions={{
+            error: {
+              style: {
+                borderRadius: "10px",
+                color: "red",
+                background: "black",
+              },
+            },
+            success: {
+              style: {
+                borderRadius: "10px",
+                color: "green",
+                background: "black",
+              },
+            },
+            duration: 2000,
+          }}
+        />
         <HeroHighlightComponent classname="h-screen fixed top-0 left-0">
           <div className="pointer-events-none">
             <App>

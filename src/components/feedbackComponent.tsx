@@ -1,9 +1,9 @@
 "use client";
 import { client } from "@/sanity/client";
-import { SanityDocument } from "next-sanity";
+import { SanityClient, SanityDocument } from "next-sanity";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-
+import toast from "react-hot-toast";
 import { Input } from "./ui/input";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,39 +12,55 @@ import { cn } from "@/lib/utils";
 
 function FeedbackComponent() {
   const [messages, setMessages] = useState<SanityDocument[]>([]);
+
   useEffect(() => {
     // Fetch initial data
     const fetchData = async () => {
       const initialMessages = await client.fetch(
-        `*[_type == "message"] | order(_createdAt asc)`
+        `*[_type == "feedbacks"] | order(_createdAt asc)`
       );
       setMessages(initialMessages);
     };
 
-    // fetchData();
+    fetchData();
 
     // Listen for real-time updates
-    // const subscription = client
-    //   .listen(`*[_type == "message"]`)
-    //   .subscribe((update) => {
-    //     // Handle different types of updates
-    //     if (update.result) {
-    //       const newMessage = update.result;
+    const subscription = client
+      .listen(`*[_type == "feedbacks"]`)
+      .subscribe((update) => {
+        // Handle different types of updates
+        if (update.result) {
+          const newMessage = update.result;
 
-    //       // Update the state based on new data
-    //       setMessages((prevMessages) => [...prevMessages, newMessage]);
-    //     }
-    //   });
+          // Update the state based on new data
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        }
+      });
 
     // Cleanup on unmount
     return () => {
-      // subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, []);
 
+  console.log(messages);
   return (
     <div className="h-full relative">
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-6">
+      <div className="bg-sky-900 w-full h-full">
+        {messages.length === 0 ? (
+          <div className="">There is no message/feedback yet</div>
+        ) : (
+          <div className="">
+            {messages.map((item) => (
+              <div key={item._id} className="">
+                {item.message}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-6 bg-red-800">
         <WriteFeedback />
       </div>
     </div>
@@ -53,7 +69,6 @@ function FeedbackComponent() {
 
 export default FeedbackComponent;
 
-// message section
 // Zod schema for validation
 const formSchema = z
   .object({
@@ -74,6 +89,12 @@ const formSchema = z
     }
   );
 
+type data = {
+  name: string;
+  message: string;
+  identification: string;
+};
+
 function WriteFeedback() {
   // react-hook-form setup with zod validation
   const {
@@ -81,7 +102,8 @@ function WriteFeedback() {
     control,
     handleSubmit,
     formState: { errors },
-    setValue, // for setting form field values dynamically
+    watch,
+    reset,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -93,15 +115,41 @@ function WriteFeedback() {
 
   const [isUsingAI, setIsUsingAI] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState("");
-  const [fomrData, setFormData] = useState();
 
-  const handleSelectChange = (value: string) => {
-    setSelectedValue(value);
+  // onSubmitting message gets send to sanity
+  const onSubmit = async (data: data) => {
+    const { message, name, identification } = data;
+    // console.log("submitting", data);
+    const username = identification === "Anonymous" ? "Anonymous" : name;
+    const newMessage = {
+      _type: "feedbacks",
+      name: username,
+      message,
+      timestamp: new Date().toISOString(),
+    };
+
+    // trycatch for creating message
+    try {
+      const response = await client.create(newMessage);
+      // console.log("Message created:", response);
+      if (response) {
+        toast.success("Message sent successfully");
+      }
+    } catch (error) {
+      // console.error("Error posting message:", error);
+      if (error) {
+        toast.error("Failed");
+      }
+    }
+    setSelectedValue("");
+    reset();
   };
 
-  const onSubmit = (data: any) => {
-    console.log("Form Data:", data);
-    // Handle your form submission
+  // generating message using AI
+  const generateMessage = () => {
+    const message = watch("message");
+    console.log("generating", message);
+    reset();
   };
 
   return (
@@ -111,6 +159,7 @@ function WriteFeedback() {
           {/* buttons */}
           <div className="inline-flex gap-1">
             <button
+              type="button"
               onClick={() => setIsUsingAI(false)}
               className={cn(
                 isUsingAI ? "" : "underline underline-offset-2 text-red-700"
@@ -120,6 +169,7 @@ function WriteFeedback() {
             </button>
             <span>/</span>
             <button
+              type="button"
               onClick={() => setIsUsingAI(true)}
               className={cn(
                 isUsingAI ? "underline underline-offset-2 text-red-700" : ""
@@ -132,7 +182,6 @@ function WriteFeedback() {
           <div className="inline-flex items-center gap-1">
             {/* Identification Select */}
             <div className="space-y-0.5">
-              {/* <label className="block text-white">Select Identification</label> */}
               <Controller
                 name="identification"
                 control={control}
@@ -171,7 +220,6 @@ function WriteFeedback() {
             {/* Conditionally render the name input if "Your Name" is selected */}
             {selectedValue === "Your Name" && (
               <div className="">
-                {/* <label className="block text-white">Your Name</label> */}
                 <Input
                   type="text"
                   placeholder="Enter your name"
@@ -198,9 +246,16 @@ function WriteFeedback() {
         </div>
 
         {/* Submit Button */}
-        <Button type="submit" variant={"outline"}>
-          Submit
-        </Button>
+        <div className="">
+          <Button type="submit" variant={"outline"}>
+            Submit
+          </Button>
+          {isUsingAI && (
+            <Button type="button" variant={"outline"} onClick={generateMessage}>
+              Generate
+            </Button>
+          )}
+        </div>
       </form>
     </div>
   );

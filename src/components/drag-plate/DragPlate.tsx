@@ -60,7 +60,7 @@ function DragPlate({ className }: { className: string }) {
       (dragBounds.bottom >= svgBounds[3].top &&
         dragBounds.right <= svgBounds[3].right)
     ) {
-      router.push("/what-people-says");
+      router.push("/feedbacks");
     }
   };
 
@@ -119,7 +119,7 @@ function DragPlate({ className }: { className: string }) {
         </text>
         <text className="text-xs fill-amber-500">
           <textPath href="#circlePath4" startOffset="20%">
-            People Says!!
+            Feedbacks
           </textPath>
         </text>
       </svg>
