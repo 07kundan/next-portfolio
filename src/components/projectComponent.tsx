@@ -34,7 +34,7 @@ const CardDetails = [
   },
 ];
 
-const ProjectComponent = memo(() => {
+const ProjectComponent = memo(function ProjectComponent() {
   console.log("component was rendered at", new Date().toLocaleTimeString());
 
   return (
@@ -67,18 +67,18 @@ const ProjectComponent = memo(() => {
 
 export default ProjectComponent;
 
-const ProjectCard = memo(
-  ({
-    name,
-    description,
-    gif,
-    technologies,
-  }: {
-    name: string;
-    description: string;
-    gif: string;
-    technologies: string;
-  }) => (
+const ProjectCard = memo(function ProjectCard({
+  name,
+  description,
+  gif,
+  technologies,
+}: {
+  name: string;
+  description: string;
+  gif: string;
+  technologies: string;
+}) {
+  return (
     <div className="flex border-2 rounded-2xl p-4 h-full">
       <div className="w-1/2 py-8 h-full flex flex-col gap-5">
         <p>{name}</p>
@@ -101,5 +101,5 @@ const ProjectCard = memo(
         </div>
       </div>
     </div>
-  )
-);
+  );
+});

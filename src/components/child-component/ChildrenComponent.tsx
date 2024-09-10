@@ -61,7 +61,7 @@ function ChildrenComponent({
     }
     setDragPlateIsActive(false);
     dispatch(setIsActive(pathname));
-  }, [pathname]);
+  }, [pathname, dispatch]);
 
   const handleTheme = () => {
     dispatch(toggleTheme());

@@ -26,7 +26,7 @@ function ProfileComponent() {
       <div className="w-full flex h-full">
         <div className="w-2/3 h-full flex flex-col items-center justify-center pb-24 pl-4">
           <div className="text-xl space-y-1 ">
-            <p>Hii I'm kundan</p>
+            <p>Hii I&#39;m kundan</p>
             <p className="text-2xl">A Fullstack Developer</p>
             <div className=" flex items-center gap-10 ">
               <motion.a
@@ -215,7 +215,7 @@ function ProfileComponent() {
                 }}
               >
                 <MdPermContactCalendar className="inline-flex text-blue-600" />
-                Contact if you're looking for Fullstack Developer
+                Contact if you&#39;re looking for Fullstack Developer
               </motion.p>
             </IconContext.Provider>
           </div>
