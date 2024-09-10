@@ -93,7 +93,7 @@ function SubComponent({
   playgroundIsActive: Boolean;
 }) {
   const [stringToCheck, setStringToCheck] = useState<string>("");
-  const [randomNum, setRandomNum] = useState<number>(1); // Use the primitive number type
+  const [randomNum, setRandomNum] = useState<number>(1);
   const [message, setMessage] = useState<string>("");
 
   const form = useForm<z.infer<typeof formSchmea>>({
@@ -245,7 +245,6 @@ function SubComponent({
                       className="flex items-center text-left h-fit"
                     >
                       <FormField
-                        // disabled={randomNum !== index + 1} // Disable input if it's not the selected one
                         control={form.control}
                         name={inputName as AnswerBoxNames}
                         render={({ field }) => (

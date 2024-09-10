@@ -20,19 +20,19 @@ import { IconContext } from "react-icons/lib";
 const IconsLinks = [
   {
     Icon: <CgMail />,
-    link: "",
+    link: "mailto:kundankumarratu@gmail.com",
   },
   {
     Icon: <VscGithub />,
-    link: "",
+    link: "https://github.com/07kundan",
   },
   {
     Icon: <FaXTwitter />,
-    link: "",
+    link: "https://twitter.com/__auric",
   },
   {
     Icon: <SiLinkedin />,
-    link: "",
+    link: "https://linkedin.com/in/07kundan",
   },
 ];
 
@@ -83,11 +83,7 @@ function ChildrenComponent({
         transitionTimingFunction: "cubicBezier(0.4, 0, 0.2, 1)",
         transitionDuration: "400ms",
       }}
-      className={cn(
-        playgroundIsActive ? "w-[62vw] " : "w-[93vw] ",
-        "",
-        className
-      )}
+      className={cn(playgroundIsActive ? "w-[62vw] " : "w-[93vw] ", className)}
     >
       <span className="w-1 h-[22vh] bg-zinc-800 absolute top-0 left-4 rounded-full"></span>
       <span className="absolute top-[37vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-30">

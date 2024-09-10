@@ -9,6 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
+import axios, { AxiosError } from "axios";
 
 function FeedbackComponent() {
   const [messages, setMessages] = useState<SanityDocument[]>([]);
@@ -43,24 +44,33 @@ function FeedbackComponent() {
     };
   }, []);
 
-  console.log(messages);
+  // console.log(messages);
   return (
     <div className="h-full relative">
-      <div className="bg-sky-900 w-full h-full">
+      <div className=" w-full max-h-[70%] overflow-y-scroll">
         {messages.length === 0 ? (
-          <div className="">There is no message/feedback yet</div>
-        ) : (
           <div className="">
+            There is no message/feedback yet, you can write first
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-between gap-y-6 px-28 ">
             {messages.map((item) => (
-              <div key={item._id} className="">
-                {item.message}
+              <div
+                key={item._id}
+                className="w-[45%] min-h-[30%] p-4 space-y-3 bg-yellow-800 rounded-lg"
+              >
+                <div className="flex justify-around">
+                  <span>{item?.name}</span>
+                  <span>{item?.timestamp}</span>
+                </div>
+                <div className="">{item.message}</div>
               </div>
             ))}
           </div>
         )}
       </div>
 
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-6 bg-red-800">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-6 bg-rd-800">
         <WriteFeedback />
       </div>
     </div>
@@ -104,6 +114,7 @@ function WriteFeedback() {
     formState: { errors },
     watch,
     reset,
+    setValue,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -113,6 +124,7 @@ function WriteFeedback() {
     },
   });
 
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isUsingAI, setIsUsingAI] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState("");
 
@@ -146,16 +158,40 @@ function WriteFeedback() {
   };
 
   // generating message using AI
-  const generateMessage = () => {
-    const message = watch("message");
-    console.log("generating", message);
-    reset();
+  const generateMessage = async () => {
+    const prompt = watch("message");
+
+    if (prompt === "") {
+      toast.error("please write prompt first");
+      return;
+    }
+    // console.log("generating", prompt);
+
+    setIsGenerating(true);
+    try {
+      const response = await axios.post(`/api/suggest-messages`, {
+        keyword: prompt,
+      });
+      console.log("response", response);
+      setValue("message", response?.data?.data);
+      toast.success("text generated successfully");
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.log("error", error.response);
+        toast.error(`${error.response?.data.message}`); // Use error.message for a cleaner output
+      } else {
+        console.log("An unexpected error occurred", error);
+        toast.error("An unexpected error occurred");
+      }
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
-    <div className=" w-full p-6 pointer-events-auto text-yellow-400">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-        <div className="flex items-center justify-between py-1 px-4 ">
+    <div className=" w-full pointer-events-auto text-yellow-400">
+      <form onSubmit={handleSubmit(onSubmit)} className="text-center space-y-2">
+        <div className="flex items-center justify-around text-sm">
           {/* buttons */}
           <div className="inline-flex gap-1">
             <button
@@ -179,7 +215,7 @@ function WriteFeedback() {
             </button>
           </div>
 
-          <div className="inline-flex items-center gap-1">
+          <div className="inline-flex items-center gap-2 text-sm">
             {/* Identification Select */}
             <div className="space-y-0.5">
               <Controller
@@ -193,7 +229,7 @@ function WriteFeedback() {
                       setSelectedValue(value); // Update local state
                       field.onChange(value); // Update react-hook-form state
                     }}
-                    className="bg-transparent border rounded-md py-1 px-1.5"
+                    className="bg-transparent border rounded-md flex items-center justify-center py-2 px-2"
                   >
                     <option
                       className="bg-red-700 hover:bg-red-800"
@@ -219,8 +255,9 @@ function WriteFeedback() {
 
             {/* Conditionally render the name input if "Your Name" is selected */}
             {selectedValue === "Your Name" && (
-              <div className="">
+              <div className="space-y-0.5">
                 <Input
+                  className="text-pretty w-[13vw] bg-transparent py-2"
                   type="text"
                   placeholder="Enter your name"
                   {...register("name")}
@@ -236,17 +273,26 @@ function WriteFeedback() {
         {/* Message textarea */}
         <div className="space-y-0.5">
           <textarea
-            className="bg-transparent border border-zinc-700 w-full p-2 "
-            placeholder="Type your message here..."
+            disabled={isGenerating ? true : false}
+            className={cn(
+              isGenerating ? "bg-black/50" : "bg-transparent",
+              " border border-zinc-700 w-4/5 h-44 p-2 text-sm"
+            )}
+            placeholder={
+              isUsingAI
+                ? "Write your Prompt or just some keyword e.g keyword1, keyword2..."
+                : "Type your message here..."
+            }
             {...register("message")}
           />
+          {isGenerating && <p>generating......</p>}
           {errors.message && (
             <p className="text-red-500 text-xs">{errors.message.message}</p>
           )}
         </div>
 
         {/* Submit Button */}
-        <div className="">
+        <div className="space-x-10">
           <Button type="submit" variant={"outline"}>
             Submit
           </Button>

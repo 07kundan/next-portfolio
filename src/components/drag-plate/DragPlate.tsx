@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ function DragPlate({ className }: { className: string }) {
   const [svgBounds, setSvgBounds] = useState<DOMRect[]>([]);
   const router = useRouter();
 
-  const svgPositionTrigger: Boolean = useSelector(
+  const svgPositionTrigger: boolean = useSelector(
     (state: RootState) => state.svgPosition.triggered
   );
   const pathname = usePathname();

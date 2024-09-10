@@ -8,7 +8,7 @@ function App({ children }: { children?: React.ReactNode }) {
 
   return (
     <Provider store={store}>
-      <div className="">{children}</div>
+      <div>{children}</div>
     </Provider>
   );
 }

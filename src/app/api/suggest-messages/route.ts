@@ -1,8 +1,10 @@
 import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
+import { AxiosError } from "axios";
 
 export async function POST(req: Request) {
   try {
+    // console.log(req);
     const { keyword } = await req.json();
     const prompt = `write me a feedback for a person based on keywords ${keyword} or "${keyword}"`;
     // console.log(prompt);
@@ -10,7 +12,7 @@ export async function POST(req: Request) {
       model: google("gemini-1.5-pro-latest"),
       prompt,
     });
-    console.log("generated text:", text);
+    // console.log("generated text:", text);
     return Response.json(
       {
         data: text,
@@ -19,12 +21,16 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     );
-  } catch (error) {
-    console.log("problem while genrating message", error);
+  } catch (error: unknown) {
+    // Safely extract reason and handle the error
+    const errorMessage =
+      (error as any)?.reason || (error as any)?.message || "Unknown error";
+    console.log("Error:", errorMessage);
+
     return Response.json(
       {
         success: false,
-        message: "failed",
+        message: errorMessage,
       },
       { status: 500 }
     );
