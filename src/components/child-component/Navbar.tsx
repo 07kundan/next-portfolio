@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function Navbar({
@@ -11,9 +12,16 @@ function Navbar({
   dragPlateIsActive: boolean;
   className: string;
 }) {
+  const router = useRouter();
+
   return (
     <div className={cn("flex justify-between items-center", className)}>
-      <span className="text-2xl font-extrabold tracking-tight text-red-800">
+      <span
+        onClick={() => {
+          router.push("/");
+        }}
+        className="text-2xl font-extrabold tracking-tight text-[#DD5746] cursor-pointer pointer-events-auto"
+      >
         AURIC
       </span>
       <ul
@@ -24,17 +32,18 @@ function Navbar({
         }}
         className={cn(
           dragPlateIsActive || pathname === "/" ? "opacity-0" : "opacity-100",
-          "flex items-center gap-4 tracking-tighter"
+          "flex items-center gap-4 "
         )}
       >
-        <span className="text-red-700 text-4xl">{"<"}</span>
+        <span className="text-[#DD5746] text-4xl">{"<"}</span>
         {["profile", "skills", "projects", "feedbacks"].map((item) => (
           <li key={item} className="pointer-events-auto">
             <Link
               className={cn(
                 pathname === `/${item}`
-                  ? "text-red-600 underline underline-offset-2 tracking-wide"
-                  : "text-yellow-400 hover:text-yellow-600 tracking-wide"
+                  ? "text-[#207695] underline underline-offset-2 "
+                  : "text-[#4793AF] hover:text-[#306c81] ",
+                "font-bold"
               )}
               href={`/${item}`}
             >
@@ -43,7 +52,7 @@ function Navbar({
           </li>
         ))}
 
-        <span className="text-red-700 text-4xl">{"/>"}</span>
+        <span className="text-[#DD5746] text-4xl">{"/>"}</span>
       </ul>
     </div>
   );

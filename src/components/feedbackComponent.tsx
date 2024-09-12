@@ -1,6 +1,6 @@
 "use client";
 import { client } from "@/sanity/client";
-import { SanityClient, SanityDocument } from "next-sanity";
+import { SanityDocument } from "next-sanity";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
@@ -10,6 +10,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import axios, { AxiosError } from "axios";
+import HeadComponent from "./headComponent";
+import { FaRegMessage } from "react-icons/fa6";
+import { MdFeedback } from "react-icons/md";
+import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
+import { ubuntu } from "@/app/fonts/fonts";
 
 function FeedbackComponent() {
   const [messages, setMessages] = useState<SanityDocument[]>([]);
@@ -34,7 +39,7 @@ function FeedbackComponent() {
           const newMessage = update.result;
 
           // Update the state based on new data
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
+          setMessages((prevMessages) => [newMessage, ...prevMessages]);
         }
       });
 
@@ -46,38 +51,61 @@ function FeedbackComponent() {
 
   // console.log(messages);
   return (
-    <div className="h-full relative">
-      <div className=" w-full max-h-[70%] overflow-y-scroll">
-        {messages.length === 0 ? (
-          <div className="">
-            There is no message/feedback yet, you can write first
-          </div>
-        ) : (
-          <div className="flex flex-wrap justify-between gap-y-6 px-28 ">
-            {messages.map((item) => (
-              <div
-                key={item._id}
-                className="w-[45%] min-h-[30%] p-4 space-y-3 bg-yellow-800 rounded-lg"
-              >
-                <div className="flex justify-around">
-                  <span>{item?.name}</span>
-                  <span>{item?.timestamp}</span>
-                </div>
-                <div className="">{item.message}</div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+    <>
+      <HeadComponent>
+        <FaRegMessage className="text-2xl" />
+        <span className="text-3xl text-[#DD5746]">|</span>
+        <span className="font-bold ">Feedbacks</span>
+        <span className=" text-3xl text-[#DD5746]">|</span>
+        <MdFeedback className="text-xl" />
+      </HeadComponent>
+      <div className="h-full flex p-3 gap-4">
+        <div className="w-2/3">
+          {messages.length === 0 ? (
+            <div
+              className={cn(
+                `w-full h-full flex items-center justify-center font-semibold ${ubuntu.className} text-lg`
+              )}
+            >
+              There is no message/feedback yet, write first🙂
+            </div>
+          ) : (
+            <div className="w-full h-full overflow-y-scroll pointer-events-auto space-y-4">
+              <Cards messages={messages} />
+            </div>
+          )}
+        </div>
 
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-6 bg-rd-800">
-        <WriteFeedback />
+        <div className="w-1/2 px-6">
+          <WriteFeedback />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default FeedbackComponent;
+
+// cards subcomponent
+
+function Cards({ messages }: { messages: SanityDocument[] }) {
+  return (
+    <div className=" p-3">
+      <BentoGrid>
+        {messages.map((item, index) => (
+          <BentoGridItem
+            key={index}
+            className={`${(index + 1) % 4 === 1 || (index + 1) % 4 === 0 ? "md:col-span-3 " : "md:col-span-2"} text-[#6cd8ff] bg-transparent/50 outline outline-[#22657d]`}
+            description={item.message}
+            title={item.name}
+            header={item.timestamp}
+            // icon={item.icno}
+          />
+        ))}
+      </BentoGrid>
+    </div>
+  );
+}
 
 // Zod schema for validation
 const formSchema = z
@@ -94,7 +122,7 @@ const formSchema = z
       return true;
     },
     {
-      message: "Name is required when 'Your Name' is selected",
+      message: "Name is required when",
       path: ["name"], // Path to the error message in the form
     }
   );
@@ -126,7 +154,7 @@ function WriteFeedback() {
 
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isUsingAI, setIsUsingAI] = useState<boolean>(false);
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("Your Name");
 
   // onSubmitting message gets send to sanity
   const onSubmit = async (data: data) => {
@@ -169,18 +197,19 @@ function WriteFeedback() {
 
     setIsGenerating(true);
     try {
+      setValue("message", "");
       const response = await axios.post(`/api/suggest-messages`, {
         keyword: prompt,
       });
-      console.log("response", response);
+      // console.log("response", response);
       setValue("message", response?.data?.data);
       toast.success("text generated successfully");
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        console.log("error", error.response);
+        // console.log("error", error.response);
         toast.error(`${error.response?.data.message}`); // Use error.message for a cleaner output
       } else {
-        console.log("An unexpected error occurred", error);
+        // console.log("An unexpected error occurred", error);
         toast.error("An unexpected error occurred");
       }
     } finally {
@@ -189,33 +218,38 @@ function WriteFeedback() {
   };
 
   return (
-    <div className=" w-full pointer-events-auto text-yellow-400">
-      <form onSubmit={handleSubmit(onSubmit)} className="text-center space-y-2">
-        <div className="flex items-center justify-around text-sm">
+    <div className=" w-full pointer-events-auto h-full pt-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="text-center h-full space-y-3"
+      >
+        <div className="flex items-center justify-around text-base tracking-tighter ">
           {/* buttons */}
           <div className="inline-flex gap-1">
             <button
               type="button"
               onClick={() => setIsUsingAI(false)}
               className={cn(
-                isUsingAI ? "" : "underline underline-offset-2 text-red-700"
+                isUsingAI ? "" : "underline underline-offset-2 text-[#295b6d]",
+                "font-bold"
               )}
             >
               Write your own
             </button>
-            <span>/</span>
+            <span className="text-[#DD5746] text-2xl font-bold">/</span>
             <button
               type="button"
               onClick={() => setIsUsingAI(true)}
               className={cn(
-                isUsingAI ? "underline underline-offset-2 text-red-700" : ""
+                isUsingAI ? "underline underline-offset-2 text-[#295b6d]" : "",
+                "font-bold"
               )}
             >
               generate using AI
             </button>
           </div>
 
-          <div className="inline-flex items-center gap-2 text-sm">
+          <div className=" text-sm flex flex-col items-center space-y-1.5">
             {/* Identification Select */}
             <div className="space-y-0.5">
               <Controller
@@ -226,28 +260,29 @@ function WriteFeedback() {
                     value={field.value}
                     onChange={(e) => {
                       const value = e.target.value;
+                      console.log(e.target.value);
                       setSelectedValue(value); // Update local state
                       field.onChange(value); // Update react-hook-form state
                     }}
-                    className="bg-transparent border rounded-md flex items-center justify-center py-2 px-2"
+                    className="bg-[#295b6d] text-[#61cdf5] font-bold border rounded-md flex items-center justify-center py-1 px-2 tracking-normal border-[#122b34]"
                   >
                     <option
-                      className="bg-red-700 hover:bg-red-800"
-                      value="Anonymous"
-                    >
-                      Anonymous
-                    </option>
-                    <option
-                      className="bg-red-700 hover:bg-red-800"
+                      className="bg-[#295b6d] border-[#122b34] font-bold"
                       value="Your Name"
                     >
                       Your Name
+                    </option>
+                    <option
+                      className="bg-[#295b6d] border-[#122b34] font-bold"
+                      value="Anonymous "
+                    >
+                      Anonymous
                     </option>
                   </select>
                 )}
               />
               {errors.identification && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-500 text-xs font-bold">
                   {errors.identification.message}
                 </p>
               )}
@@ -257,7 +292,7 @@ function WriteFeedback() {
             {selectedValue === "Your Name" && (
               <div className="space-y-0.5">
                 <Input
-                  className="text-pretty w-[13vw] bg-transparent py-2"
+                  className="text-sm w-[10vw] bg-[#295b6d] border border-[#122b34] text-[#61cdf5] font-bold py-1"
                   type="text"
                   placeholder="Enter your name"
                   {...register("name")}
@@ -271,33 +306,71 @@ function WriteFeedback() {
         </div>
 
         {/* Message textarea */}
-        <div className="space-y-0.5">
+        <div className="space-y-0.5 relative w-11/12 h-[75%] text-[#65d3fc] m-auto text-pretty font-semibold rounded-lg">
+          {errors.message && (
+            <p className="text-red-500 text-xs">{errors.message.message}</p>
+          )}
           <textarea
             disabled={isGenerating ? true : false}
             className={cn(
-              isGenerating ? "bg-black/50" : "bg-transparent",
-              " border border-zinc-700 w-4/5 h-44 p-2 text-sm"
+              isGenerating ? "bg-[#183845]" : "bg-[#255365]/70 ",
+              " border-2  border-[#133441] w-full h-full p-4 rounded-lg"
             )}
             placeholder={
               isUsingAI
-                ? "Write your Prompt or just some keyword e.g keyword1, keyword2..."
-                : "Type your message here..."
+                ? isGenerating
+                  ? ""
+                  : "Write your Prompt or just some keyword e.g keyword1, keyword2..."
+                : isGenerating
+                  ? ""
+                  : "Type your message here..."
             }
             {...register("message")}
           />
-          {isGenerating && <p>generating......</p>}
-          {errors.message && (
-            <p className="text-red-500 text-xs">{errors.message.message}</p>
+          {isGenerating && (
+            <div
+              id="skeleton"
+              className="flex flex-col space-y-2  p-4 absolute left-0 top-0 w-full h-[95%]"
+            >
+              <div className="h-6 bg-cyan-800 rounded-lg w-32 animate-pulse"></div>
+              <div className="h-6 bg-cyan-800 rounded w-2/3 animate-pulse"></div>
+
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+            </div>
           )}
         </div>
 
         {/* Submit Button */}
-        <div className="space-x-10">
-          <Button type="submit" variant={"outline"}>
+        <div className="space-x-10 pt-4">
+          <Button
+            type="submit"
+            variant={"outline"}
+            className="bg-[#295b6d] text-[#DD5746] font-bold text-lg"
+          >
             Submit
           </Button>
           {isUsingAI && (
-            <Button type="button" variant={"outline"} onClick={generateMessage}>
+            <Button
+              className="bg-[#295b6d] text-[#DD5746] font-bold text-lg"
+              type="button"
+              variant={"outline"}
+              onClick={generateMessage}
+            >
               Generate
             </Button>
           )}

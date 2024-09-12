@@ -19,13 +19,13 @@ function SkillList({ data }: { data: skillSchema }) {
   return (
     <>
       <HeadComponent>
-        <SiHyperskill className="text-red-700" />
-        <span className=" text-3xl">|</span>
-        <span className="text-red-700">My skills</span>
-        <span className=" text-3xl">|</span>
-        <span className="text-red-700">Tools</span>
-        <span className="text-3xl">|</span>
-        <FaTools className="text-red-700 text-xl" />
+        <SiHyperskill className="" />
+        <span className=" text-3xl text-[#DD5746]">|</span>
+        <span className="font-bold">My skills</span>
+        <span className=" text-3xl text-[#DD5746]">|</span>
+        <span className="font-bold">Tools</span>
+        <span className="text-3xl text-[#DD5746]">|</span>
+        <FaTools className="text-xl" />
       </HeadComponent>
       <div
         className={cn(
@@ -50,7 +50,7 @@ function SkillList({ data }: { data: skillSchema }) {
             className="  w-[13vh] h-[13vh] flex justify-center items-center "
           >
             <div className="relative group/item pointer-events-auto cursor-pointer">
-              <span className=" bg-zinc-400 text-black px-3 py-1 text-xs whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
+              <span className=" bg-[#72a9bc] text-[#0c4357] font-bold px-3 py-1 text-sm whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
                 {item.name}
               </span>
               <div className="w-[6vh] h-[6vh] flex items-center justify-center">

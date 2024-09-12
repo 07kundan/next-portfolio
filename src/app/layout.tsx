@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="hydrated">
-      <body className={`dark  ${inter.className}`}>
+      <body className={`${inter.className} text-[#4793AF] `}>
         <Toaster
           position="bottom-right"
           reverseOrder={true}
@@ -40,9 +40,9 @@ export default function RootLayout({
           <div className="pointer-events-none">
             <App>
               <div>
-                <PlayGroundComponent className="absolute top-0 left-0 border-r-4 border-zinc-800 bg-zinc-950" />
+                <PlayGroundComponent className="absolute top-0 left-0 border-r-4 border-[#637c52] bg-[#AFD198] dark:bg-transparent" />
               </div>
-              <ChildrenComponent className="absolute top-0 right-0">
+              <ChildrenComponent className="absolute top-0 right-0 bg-[#DBA979]/50">
                 {children}
               </ChildrenComponent>
             </App>

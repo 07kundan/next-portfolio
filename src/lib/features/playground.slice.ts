@@ -3,22 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const playgroundSlice = createSlice({
   name: "playground",
   initialState: {
-    isActive: true,
+    isActive: false,
   },
 
   reducers: {
-    setIsActive: (state, action) => {
+    setIsActive: (state) => {
       // console.log("payload", action.payload);
+      // if (action.payload === "toggle") {
+      state.isActive = !state.isActive;
 
-      if (action.payload === "toggle") {
-        state.isActive = !state.isActive;
-      } else {
-        if (action.payload === "/") {
-          state.isActive = true;
-        } else {
-          state.isActive = false;
-        }
-      }
+      // }
     },
   },
 });

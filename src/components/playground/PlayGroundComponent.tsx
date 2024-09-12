@@ -1,9 +1,11 @@
 "use client";
-import { ArrowBigLeft, ArrowLeftFromLine, RefreshCcw } from "lucide-react";
+import { IoIosArrowBack } from "react-icons/io";
+import { RefreshCcw } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+
 import {
   Form,
   FormControl,
@@ -19,6 +21,8 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { setIsActive } from "@/lib/features/playground.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTriggered } from "@/lib/features/svgPosition.slice";
+import { Playpen } from "@/app/fonts/fonts";
+import { toggleTheme } from "@/lib/features/theme.slice";
 
 const formSchmea = z.object({
   answerBox: z
@@ -123,24 +127,39 @@ function SubComponent({
   };
 
   useEffect(() => {
+    // last theme check in local storage
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      dispatch(toggleTheme(savedTheme));
+      // setTheme(savedTheme);
+      document.documentElement.classList.add(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      dispatch(toggleTheme(prefersDark));
+      // setTheme(prefersDark ? "dark" : "light");
+      document.documentElement.classList.add(prefersDark ? "dark" : "light");
+    }
+
     getRandomNumber();
     toSetGuessString();
   }, []);
-
   const onSubmit = (values: z.infer<typeof formSchmea>) => {
     console.log("submitting");
     const typedString = values.answerBox;
     if (typedString !== stringToCheck) {
-      setMessage("You failed to type the correct string");
+      setMessage("Oops!! you should learn typing first🦁");
     } else {
-      setMessage("Congrats!! You successfully typed the string");
+      setMessage("Congrats!! E lo ab jamun khao🫐");
     }
 
     setTimeout(() => {
       setMessage("");
       getRandomNumber();
       form.reset(); // Reset form values after each roundS
-    }, 3000);
+    }, 4000);
   };
 
   // function for random character
@@ -165,7 +184,7 @@ function SubComponent({
     }
   }
   function handleTogglePlayground() {
-    dispatch(setIsActive("toggle"));
+    dispatch(setIsActive());
   }
   const handleAnimationEnd = () => {
     dispatch(toggleTriggered());
@@ -181,7 +200,7 @@ function SubComponent({
       }}
       className={cn(
         playgroundIsActive ? "w-[38vw] " : `w-[7vw] `,
-        `relative py-4 overflow-hidden h-screen`,
+        `relative py-4 overflow-hidden h-screen ${Playpen.className}`,
         className
       )}
     >
@@ -197,7 +216,7 @@ function SubComponent({
         )}
         onClick={handleTogglePlayground}
       >
-        <ArrowLeftFromLine />
+        <IoIosArrowBack className="text-2xl " />
       </button>
 
       <div
@@ -209,18 +228,23 @@ function SubComponent({
         }}
         className={cn(playgroundIsActive ? "opacity-100" : "opacity-0")}
       >
-        <div>
+        <div className="">
           <h1 className="text-center font-bold text-2xl underline py-2">
             Playground
           </h1>
-          <h2 className="flex gap-3 justify-center py- text-xl py-2 ">
-            Type the string: {stringToCheck}{" "}
-            <button onClick={toSetGuessString} className="pointer-events-auto">
+          <h2 className="flex flex-wrap justify-center items-center text-pretty gap-1 py-2 font-semibold text-lg tracking-tight">
+            Find the correct box and type
+            <span className="font-bold text-xl">"{stringToCheck}" </span>
+            to get khatti toffee
+            <button
+              onClick={toSetGuessString}
+              className="pointer-events-auto ml-2"
+            >
               <RefreshCcw />
             </button>
           </h2>
 
-          <div className="text-xl text-center h-14 flex items-center justify-center">
+          <div className="text-lg text-center py-2">
             {message && <span className="">{message}</span>}
           </div>
         </div>
@@ -242,17 +266,19 @@ function SubComponent({
                   return (
                     <div
                       key={index}
-                      className="flex items-center text-left h-fit"
+                      className="flex items-center text-left h-fit "
                     >
                       <FormField
                         control={form.control}
                         name={inputName as AnswerBoxNames}
                         render={({ field }) => (
-                          <FormItem className="w-[15vw]  space-y-1">
-                            <FormLabel>Type here</FormLabel>
+                          <FormItem className="w-[15vw] space-y-1">
+                            <FormLabel className="font-semibold">
+                              Type here
+                            </FormLabel>
                             <FormControl>
                               <Input
-                                className="text-base pointer-events-auto placeholder:text-sm font-normal focus-visible:ring-blue-950 read-only:"
+                                className="text-pretty pointer-events-auto placeholder:text-sm  focus-visible:ring-[#4096b5] text-[#DD5746] font-bold bg-[#28505f] read-only: py-2"
                                 // required={randomNum === index + 1}
                                 readOnly={randomNum !== index + 1}
                                 placeholder="Type here !!"
@@ -274,7 +300,7 @@ function SubComponent({
                   );
                 })}
               <Button
-                className="px-10 text-lg hover:bg-zinc-950 hover:text-blue-700 pointer-events-auto"
+                className="px-10 text-lg font-bold pointer-events-auto"
                 variant={"outline"}
                 type="submit"
               >
