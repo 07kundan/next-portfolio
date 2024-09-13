@@ -40,9 +40,9 @@ export default function RootLayout({
           <div className="pointer-events-none">
             <App>
               <div>
-                <PlayGroundComponent className="absolute top-0 left-0 border-r-4 border-[#637c52] bg-[#AFD198] dark:bg-transparent" />
+                <PlayGroundComponent className="absolute top-0 left-0 border-r-8 border-[#637c52] bg-[#AFD198] dark:bg-[#181b22] dark:border-[#1e1818]" />
               </div>
-              <ChildrenComponent className="absolute top-0 right-0 bg-[#DBA979]/50">
+              <ChildrenComponent className="absolute top-0 right-0 bg-[#DBA979]/50 dark:bg-transparent">
                 {children}
               </ChildrenComponent>
             </App>

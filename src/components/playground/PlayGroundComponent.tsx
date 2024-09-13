@@ -232,7 +232,7 @@ function SubComponent({
           <h1 className="text-center font-bold text-2xl underline py-2">
             Playground
           </h1>
-          <h2 className="flex flex-wrap justify-center items-center text-pretty gap-1 py-2 font-semibold text-lg tracking-tight">
+          <h2 className="flex flex-wrap justify-center items-center text-pretty gap-1 py-4 font-semibold text-base tracking-tight">
             Find the correct box and type
             <span className="font-bold text-xl">"{stringToCheck}" </span>
             to get khatti toffee
@@ -253,7 +253,7 @@ function SubComponent({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className=" text-center flex flex-wrap justify-center py-5 gap-8 "
+              className=" text-center flex flex-wrap justify-center py-5 gap-10 "
             >
               {Array(8)
                 .fill("")
@@ -272,13 +272,13 @@ function SubComponent({
                         control={form.control}
                         name={inputName as AnswerBoxNames}
                         render={({ field }) => (
-                          <FormItem className="w-[15vw] space-y-1">
-                            <FormLabel className="font-semibold">
+                          <FormItem className="w-[15vw] space-y-2">
+                            <FormLabel className="font-semibold text-sm">
                               Type here
                             </FormLabel>
                             <FormControl>
                               <Input
-                                className="text-pretty pointer-events-auto placeholder:text-sm  focus-visible:ring-[#4096b5] text-[#DD5746] font-bold bg-[#28505f] read-only: py-2"
+                                className="text-pretty pointer-events-auto placeholder:text-xs  focus-visible:ring-[#4096b5] text-[#DD5746] font-bold bg-[#28505f]  py-4 dark:bg-[#27292f]"
                                 // required={randomNum === index + 1}
                                 readOnly={randomNum !== index + 1}
                                 placeholder="Type here !!"

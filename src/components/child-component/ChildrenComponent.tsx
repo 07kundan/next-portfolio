@@ -89,7 +89,7 @@ function ChildrenComponent({
       }}
       className={cn(playgroundIsActive ? "w-[62vw] " : "w-[93vw]", className)}
     >
-      <span className="w-1 h-[28vh] absolute top-0 left-4 rounded-full bg-[#5d704f]/60"></span>
+      <span className="w-1 h-[28vh] absolute top-0 left-4 rounded-full bg-[#5d704f]/60 dark:bg-[#1d2026]"></span>
       <span
         className={`absolute top-[42vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-70 font-semibold`}
       >
@@ -99,22 +99,22 @@ function ChildrenComponent({
       {/* social media links */}
 
       <div className="fixed right-5 bottom-8 space-y-3 group/links pointer-events-auto">
-        <span className="w-1 h-[70vh] bg-[#5d704f]/60 group-hover/links:bg-[#4ebe03] absolute bottom-full right-1/2 translate-x-1/2 opacity-15 rounded-full group-hover/links:transition-all group-hover/links:opacity-100"></span>
-        <span className="w-1 h-8 bg-[#4ebe03] absolute -bottom-8 right-1/2 translate-x-1/2 "></span>
+        <span className="w-1 h-[70vh] bg-[#5d704f]/60 group-hover/links:bg-[#4ebe03] absolute bottom-full right-1/2 translate-x-1/2 opacity-15 rounded-full group-hover/links:transition-all group-hover/links:opacity-100 dark:bg-[#7792c9] dark:group-hover/links:bg-[#313640]"></span>
+        <span className="w-1 h-8 bg-[#4ebe03] dark:bg-[#313640] absolute -bottom-8 right-1/2 translate-x-1/2 "></span>
         <IconContext.Provider value={{ className: "" }}>
           {IconsLinks.map((item, index) => (
             <Link
               href={item.link}
               key={index}
-              className="h-10 w-10  items-center justify-center  rounded-full bg-[#AFD198] flex opacity-15  group-hover/links:opacity-100  group-hover/links:transition-all group-hover/links:-translate-y-6 relative outline outline-2 outline-[#6d885b]"
+              className="h-10 w-10  items-center justify-center  rounded-full bg-[#AFD198] dark:bg-[#454850] flex opacity-15  group-hover/links:opacity-100  group-hover/links:transition-all group-hover/links:-translate-y-6 relative outline outline-2 outline-[#6d885b] dark:outline-[#252a35] "
             >
-              <span className="w-[4vw] h-1 absolute top-1/2 left-full bg-[#5d704f]/60 group-hover/links:bg-[#4ebe03]"></span>
+              <span className="w-[4vw] h-1 absolute top-1/2 left-full bg-[#5d704f]/60 dark:group-hover/links:bg-[#252a35] group-hover/links:bg-[#4ebe03] dark:bg-[#7792c9]"></span>
               {item.Icon}
             </Link>
           ))}
           <button
             onClick={handleTheme}
-            className=" w-10 h-10 flex items-center justify-center rounded-full bg-[#AFD198] outline outline-2 outline-[#6d885b]"
+            className=" w-10 h-10 flex items-center justify-center rounded-full bg-[#AFD198] dark:bg-[#454850] outline outline-2 outline-[#6d885b] dark:outline-[#252a35] "
           >
             {theme === "dark" ? (
               <BsSunFill className="text-orange-500 text-xl" />
@@ -138,7 +138,7 @@ function ChildrenComponent({
           }}
           className={cn(
             dragPlateIsActive
-              ? "h-[50vh] rounded-md bg-[#AFD198]/20 pointer-events-auto outline outline-[#6d885b]/50 backdrop-blur-sm"
+              ? "h-[50vh] rounded-md bg-[#AFD198]/20 dark:bg-[#181b22]/30 pointer-events-auto outline outline-[#6d885b]/50 dark:outline-[#252a35]/50 backdrop-blur-sm"
               : "h-[5vh] backdrop-blur-0",
             "absolute bottom-0 left-1/2 -translate-x-1/2 w-[25vw] flex items-end z-10"
           )}
@@ -155,7 +155,7 @@ function ChildrenComponent({
               dragPlateIsActive
                 ? "rounded-none rounded-es-lg rounded-ee-lg"
                 : "rounded-none rounded-ss-lg rounded-se-lg ",
-              "w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2 bg-[#AFD198] pointer-events-auto outline outline-[#6d885b]"
+              "w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2 bg-[#AFD198] dark:bg-[#181b22] pointer-events-auto outline outline-[#6d885b] dark:outline-[#252a35]"
             )}
           >
             <div
