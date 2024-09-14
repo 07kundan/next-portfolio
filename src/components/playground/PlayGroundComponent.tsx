@@ -235,7 +235,7 @@ function SubComponent({
           <h2 className="flex flex-wrap justify-center items-center text-pretty gap-1 py-4 font-semibold text-base tracking-tight">
             Find the correct box and type
             <span className="font-bold text-xl">
-              &quot{stringToCheck}&quot{" "}
+              &quot;{stringToCheck}&quot;
             </span>
             to get khatti toffee
             <button
