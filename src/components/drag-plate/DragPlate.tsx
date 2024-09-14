@@ -70,7 +70,7 @@ function DragPlate({ className }: { className: string }) {
         transitionDuration: "600ms",
       }}
       ref={dragableArea}
-      className={` relative w-[30vw] h-[30vw] rounded-full overflow-hidden ${className} `}
+      className={` relative w-[32vh] h-[32vh] md:w-[30vw] md:h-[30vw] rounded-full overflow-hidden ${className} `}
     >
       <svg viewBox="0 0 200 200" className="circle-svg bg">
         <path

@@ -53,17 +53,20 @@ function ProfileComponent() {
     <>
       <HeadComponent>
         <CgProfile className="text-2xl" />
-        <span className="text-3xl text-[#DD5746]">|</span>
+        <span className="text-2xl md:text-3xl text-[#DD5746]">|</span>
         <span className={`font-bold`}>About me</span>
-        <span className=" text-3xl text-[#DD5746]">|</span>
+        <span className="text-2xl md:text-3xl text-[#DD5746]">|</span>
         <FaTools className=" text-xl" />
       </HeadComponent>
-      <div className="w-full flex h-full">
-        <div className="w-2/3 h-full flex flex-col items-center justify-center pb-24 pl-4">
-          <div className="text-xl space-y-8">
-            <div>
-              <p className="font-semibold text-2xl">Hii I&#39;m Kundan</p>
-              <p className="text-2xl ml-8 mt-2 font-bold">
+      {/* description */}
+      <div className="w-full flex flex-col-reverse md:flex-row h-full">
+        <div className="h-1/2 md:w-2/3 md:h-full flex flex-col items-center justify-center pb-24 md:pl-4 gap-8 pr-2 md:pr-0">
+          <div className="text-lg md:text-xl space-y-6 md:space-y-8  max-w-full">
+            <div className="pl-6">
+              <p className="font-medium md:font-semibold text-xl md:text-2xl">
+                Hii I&#39;m Kundan
+              </p>
+              <p className="text-xl md:text-2xl ml-8 mt-2 font-semibold md:font-bold">
                 <span className="text-[#DD5746]">A</span>
                 <span className={`text-[#DD5746] ${Playpen.className}`}>
                   {" "}
@@ -71,7 +74,7 @@ function ProfileComponent() {
                 </span>
               </p>
             </div>
-            <div className=" flex items-center gap-16 ">
+            <div className=" flex items-center gap-8  md:gap-16 ">
               <motion.a
                 variants={{
                   initial: { x: -25, opacity: 0 },
@@ -83,7 +86,7 @@ function ProfileComponent() {
                   duration: 0.5,
                   ease: "backOut",
                 }}
-                className="pointer-events-auto px-3 py-1 rounded-sm bg-[#4793AF] text-[#0c4357] inline-flex items-center gap-2 font-bold"
+                className="pointer-events-auto px-3 py-1 rounded-sm bg-[#4793AF] text-[#0c4357] inline-flex items-center gap-2 font-semibold md:font-bold"
                 href={
                   "https://drive.google.com/file/d/1BGs0rQPCPn_gYJrF9Qd30okMGrOpi05r/view?usp=sharing"
                 }
@@ -92,9 +95,9 @@ function ProfileComponent() {
                 Resume
                 <FaDownload className="text-lg animate-bounce" />
               </motion.a>
-              <div className="flex items-center justify-center gap-4 ">
+              <div className="flex items-center justify-center gap-2 md:gap-4 ">
                 <IconContext.Provider
-                  value={{ className: "text-2xl text-[#4793AF]" }}
+                  value={{ className: "text-xl md:text-2xl text-[#4793AF]" }}
                 >
                   {" "}
                   <motion.p
@@ -154,8 +157,10 @@ function ProfileComponent() {
             </div>
           </div>
 
-          <div className="mt-20 space-y-1">
-            <IconContext.Provider value={{ className: "text-2xl mr-2" }}>
+          <div className="md:mt-20 space-y-1">
+            <IconContext.Provider
+              value={{ className: "text-xl md:text-2xl mr-2" }}
+            >
               {keyPoints.map((item, index) => (
                 <motion.p
                   key={index}
@@ -173,7 +178,9 @@ function ProfileComponent() {
                   className=""
                 >
                   <span className="">{item.icon}</span>
-                  <span className={`font-semibold tracking-tight text-lg `}>
+                  <span
+                    className={`font-medium md:font-semibold tracking-tight text-sm md:text-lg `}
+                  >
                     {" "}
                     {item.description}
                   </span>
@@ -182,7 +189,9 @@ function ProfileComponent() {
             </IconContext.Provider>
           </div>
         </div>
-        <div className="w-1/2 h-full flex justify-center items-center">
+
+        {/* image */}
+        <div className="h-1/2 md:w-1/2 md:h-full flex justify-center items-center">
           <Image src={ProfilePng} alt="Image" height={400} />
         </div>
       </div>

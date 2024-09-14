@@ -59,12 +59,12 @@ function FeedbackComponent() {
         <span className=" text-3xl text-[#DD5746]">|</span>
         <MdFeedback className="text-xl" />
       </HeadComponent>
-      <div className="h-full flex p-3 gap-4">
-        <div className="w-2/3">
+      <div className="h-full pt-20 pb-16 px-4 md:p-3 gap-4 md:flex ">
+        <div className="h-1/2 md:h-full md:w-2/3  p-4">
           {messages.length === 0 ? (
             <div
               className={cn(
-                `w-full h-full flex items-center justify-center font-semibold ${ubuntu.className} text-lg`
+                `w-full h-full flex items-center justify-center font-semibold ${ubuntu.className} text-center text-sm md:text-lg`
               )}
             >
               There is no message/feedback yet, write first🙂
@@ -76,7 +76,7 @@ function FeedbackComponent() {
           )}
         </div>
 
-        <div className="w-1/2 px-6">
+        <div className=" w-full h-1/2 md:h-full md:w-1/2 md:px-6">
           <WriteFeedback />
         </div>
       </div>
@@ -218,40 +218,85 @@ function WriteFeedback() {
   };
 
   return (
-    <div className=" w-full pointer-events-auto h-full pt-4">
+    <div className=" w-full pointer-events-auto h-full md:pt-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="text-center h-full space-y-3"
+        className="h-full md:space-y-3 flex flex-col justify-around"
       >
-        <div className="flex items-center justify-around text-base tracking-tighter ">
-          {/* buttons */}
-          <div className="inline-flex gap-1">
-            <button
-              type="button"
-              onClick={() => setIsUsingAI(false)}
-              className={cn(
-                isUsingAI ? "" : "underline underline-offset-2 text-[#295b6d]",
-                "font-bold"
-              )}
-            >
-              Write your own
-            </button>
-            <span className="text-[#DD5746] text-2xl font-bold">/</span>
-            <button
-              type="button"
-              onClick={() => setIsUsingAI(true)}
-              className={cn(
-                isUsingAI ? "underline underline-offset-2 text-[#295b6d]" : "",
-                "font-bold"
-              )}
-            >
-              generate using AI
-            </button>
-          </div>
+        {/* buttons */}
+        <div className="pl-7 space-x-2">
+          <button
+            type="button"
+            onClick={() => setIsUsingAI(false)}
+            className={cn(
+              isUsingAI ? "" : "underline underline-offset-2 text-[#295b6d]",
+              "font-bold"
+            )}
+          >
+            Write your own
+          </button>
+          <span className="text-[#DD5746] text-2xl font-bold">/</span>
+          <button
+            type="button"
+            onClick={() => setIsUsingAI(true)}
+            className={cn(
+              isUsingAI ? "underline underline-offset-2 text-[#295b6d]" : "",
+              "font-bold"
+            )}
+          >
+            generate using AI
+          </button>
+        </div>
 
-          <div className=" text-sm flex flex-col items-center space-y-1.5">
+        {/* Message textarea */}
+        <div className="space-y-0.5 relative w-11/12 h-[70%] md:h-[75%] text-white m-auto ">
+          {errors.message && (
+            <p className="text-red-500 text-xs">{errors.message.message}</p>
+          )}
+          <textarea
+            disabled={isGenerating ? true : false}
+            className={cn(
+              isGenerating ? "bg-zinc-950/90 " : "bg-zinc-900/80 ",
+              "border-2  border-[#133441] w-full h-full p-4 rounded-lg placeholder:text-xs text-sm"
+            )}
+            placeholder={
+              isUsingAI
+                ? isGenerating
+                  ? ""
+                  : "Write your Prompt or just some keyword e.g keyword1, keyword2..."
+                : isGenerating
+                  ? ""
+                  : "Type your message here..."
+            }
+            {...register("message")}
+          />
+          {isGenerating && (
+            <div
+              id="skeleton"
+              className="flex flex-col space-y-2 p-4 absolute left-0 top-0 w-full h-full"
+            >
+              <div className="h-6 bg-cyan-800 rounded w-32 animate-pulse"></div>
+              <div className="h-6 bg-cyan-800 rounded w-2/3 animate-pulse"></div>
+
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
+            </div>
+          )}
+        </div>
+
+        <div className="flex justify-around items-center ">
+          <div className="text-xs md:text-sm flex flex-col items-center space-y-1 w-1/3">
             {/* Identification Select */}
-            <div className="space-y-0.5">
+            <div className="space-y-0.5 w-full">
               <Controller
                 name="identification"
                 control={control}
@@ -264,16 +309,16 @@ function WriteFeedback() {
                       setSelectedValue(value); // Update local state
                       field.onChange(value); // Update react-hook-form state
                     }}
-                    className="bg-[#295b6d] text-[#61cdf5] font-bold border rounded-md flex items-center justify-center py-1 px-2 tracking-normal border-[#122b34]"
+                    className="w-full bg-zinc-900/80  font-bold border rounded-md flex items-center justify-center py-1.5 md:py-2 px-2 tracking-normal border-[#122b34]"
                   >
                     <option
-                      className="bg-[#295b6d] border-[#122b34] font-bold"
+                      className="bg-zinc-900/80 border-[#122b34] font-bold"
                       value="Your Name"
                     >
                       Your Name
                     </option>
                     <option
-                      className="bg-[#295b6d] border-[#122b34] font-bold"
+                      className="bg-zinc-900/80 border-[#122b34] font-bold"
                       value="Anonymous "
                     >
                       Anonymous
@@ -292,7 +337,7 @@ function WriteFeedback() {
             {selectedValue === "Your Name" && (
               <div className="space-y-0.5">
                 <Input
-                  className="text-sm w-[10vw] bg-[#295b6d] border border-[#122b34] text-[#61cdf5] font-bold py-1"
+                  className="bg-zinc-900/80  placeholder:text-[#4793AF] font-bold border rounded-md flex items-center justify-center py-1.5 md:py-2 px-2 tracking-normal border-[#122b34]  placeholder:text-xs md:placeholder:text-sm"
                   type="text"
                   placeholder="Enter your name"
                   {...register("name")}
@@ -303,77 +348,27 @@ function WriteFeedback() {
               </div>
             )}
           </div>
-        </div>
+          {/* Submit Button */}
 
-        {/* Message textarea */}
-        <div className="space-y-0.5 relative w-11/12 h-[75%] text-[#65d3fc] m-auto text-pretty font-semibold rounded-lg">
-          {errors.message && (
-            <p className="text-red-500 text-xs">{errors.message.message}</p>
-          )}
-          <textarea
-            disabled={isGenerating ? true : false}
-            className={cn(
-              isGenerating ? "bg-[#183845]" : "bg-[#255365]/70 ",
-              " border-2  border-[#133441] w-full h-full p-4 rounded-lg"
-            )}
-            placeholder={
-              isUsingAI
-                ? isGenerating
-                  ? ""
-                  : "Write your Prompt or just some keyword e.g keyword1, keyword2..."
-                : isGenerating
-                  ? ""
-                  : "Type your message here..."
-            }
-            {...register("message")}
-          />
-          {isGenerating && (
-            <div
-              id="skeleton"
-              className="flex flex-col space-y-2  p-4 absolute left-0 top-0 w-full h-[95%]"
-            >
-              <div className="h-6 bg-cyan-800 rounded-lg w-32 animate-pulse"></div>
-              <div className="h-6 bg-cyan-800 rounded w-2/3 animate-pulse"></div>
-
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
-
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-full animate-pulse"></div>
-              <div className="h-4 bg-cyan-800 rounded w-3/4 animate-pulse"></div>
-            </div>
-          )}
-        </div>
-
-        {/* Submit Button */}
-        <div className="space-x-10 pt-4">
-          <Button
-            type="submit"
-            variant={"outline"}
-            className=" font-bold text-lg"
-          >
-            Submit
-          </Button>
-          {isUsingAI && (
+          <div className="space-x-2 md:space-x-4">
             <Button
-              className=" font-bold text-lg"
-              type="button"
+              type="submit"
               variant={"outline"}
-              onClick={generateMessage}
+              className=" font-bold text-pretty md:text-lg"
             >
-              Generate
+              Submit
             </Button>
-          )}
+            {isUsingAI && (
+              <Button
+                className=" font-bold text-pretty md:text-lg"
+                type="button"
+                variant={"outline"}
+                onClick={generateMessage}
+              >
+                Generate
+              </Button>
+            )}
+          </div>
         </div>
       </form>
     </div>

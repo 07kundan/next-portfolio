@@ -20,17 +20,19 @@ function SkillList({ data }: { data: skillSchema }) {
     <>
       <HeadComponent>
         <SiHyperskill className="" />
-        <span className=" text-3xl text-[#DD5746]">|</span>
+        <span className="text-2xl md:text-3xl  text-[#DD5746]">|</span>
         <span className="font-bold">My skills</span>
-        <span className=" text-3xl text-[#DD5746]">|</span>
+        <span className=" text-2xl md:text-3xl text-[#DD5746]">|</span>
         <span className="font-bold">Tools</span>
-        <span className="text-3xl text-[#DD5746]">|</span>
+        <span className="text-2xl md:text-3xl text-[#DD5746]">|</span>
         <FaTools className="text-xl" />
       </HeadComponent>
       <div
         className={cn(
-          playgroundIsActive ? "gap-[3vw] mx-[2vw]" : "gap-[4vw] mx-[6vw]",
-          "inline-flex flex-wrap justify-center items-center pt-10 "
+          playgroundIsActive
+            ? "md:gap-x-[6vw] md:mx-[2vw]"
+            : "md:gap-x-[7vw] md:mx-[7vw]",
+          "inline-flex flex-wrap justify-center items-center gap-x-10 gap-y-10 md:gap-y-12 pt-[20vh] md:pt-10 "
         )}
       >
         {data?.skills?.map((item, index) => (
@@ -47,13 +49,13 @@ function SkillList({ data }: { data: skillSchema }) {
               ease: "backInOut",
             }}
             key={index}
-            className="  w-[13vh] h-[13vh] flex justify-center items-center "
+            className="w-[7vh] h-[7vh] md:w-[13vh] md:h-[13vh] flex justify-center items-center "
           >
             <div className="relative group/item pointer-events-auto cursor-pointer">
               <span className=" bg-[#72a9bc] text-[#0c4357] font-bold px-3 py-1 text-sm whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
                 {item.name}
               </span>
-              <div className="w-[6.5vh] h-[6.5vh] flex items-center justify-center">
+              <div className="w-[4vh] h-[4vh] md:w-[6.5vh] md:h-[6.5vh] flex items-center justify-center">
                 <Image
                   src={ImageurlFor(item.logo).url()}
                   alt={item.name}
@@ -81,13 +83,13 @@ function SkillList({ data }: { data: skillSchema }) {
               ease: "backInOut",
             }}
             key={index}
-            className="  w-[13vh] h-[13vh] flex justify-center items-center "
+            className="w-[7vh] h-[7vh] md:w-[13vh] md:h-[13vh] flex justify-center items-center "
           >
             <div className="relative group/item pointer-events-auto cursor-pointer">
-              <span className=" bg-zinc-400 text-black px-3 py-1 text-xs whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
+              <span className=" bg-[#72a9bc] text-[#0c4357] font-bold px-3 py-1 text-sm whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
                 {item.name}
               </span>
-              <div className="w-[6vh] h-[6vh] flex items-center justify-center">
+              <div className="w-[4vh] h-[4vh] md:w-[6.5vh] md:h-[6.5vh] flex items-center justify-center">
                 <Image
                   src={ImageurlFor(item.logo).url()}
                   alt={item.name}

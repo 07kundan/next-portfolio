@@ -2,6 +2,29 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { CgProfile } from "react-icons/cg";
+import { FaProjectDiagram } from "react-icons/fa";
+import { FaRegMessage } from "react-icons/fa6";
+import { SiHyperskill } from "react-icons/si";
+
+const NavItems = [
+  {
+    name: "profile",
+    icon: <CgProfile className="text-lg" />,
+  },
+  {
+    name: "skills",
+    icon: <SiHyperskill />,
+  },
+  {
+    name: "projects",
+    icon: <FaProjectDiagram />,
+  },
+  {
+    name: "feedbacks",
+    icon: <FaRegMessage />,
+  },
+];
 
 function Navbar({
   pathname,
@@ -36,8 +59,8 @@ function Navbar({
         )}
       >
         <span className="text-[#DD5746] text-4xl">{"<"}</span>
-        {["profile", "skills", "projects", "feedbacks"].map((item) => (
-          <li key={item} className="pointer-events-auto">
+        {NavItems.map((item) => (
+          <li key={item.name} className="pointer-events-auto">
             <Link
               className={cn(
                 pathname === `/${item}`
@@ -45,9 +68,12 @@ function Navbar({
                   : "text-[#4793AF] hover:text-[#306c81] ",
                 "font-bold"
               )}
-              href={`/${item}`}
+              href={`/${item.name}`}
             >
-              {item.toLocaleUpperCase()}
+              <span className="md:hidden">{item.icon}</span>
+              <span className="hidden md:block">
+                {item.name.toLocaleUpperCase()}
+              </span>
             </Link>
           </li>
         ))}

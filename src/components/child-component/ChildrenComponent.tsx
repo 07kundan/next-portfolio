@@ -14,7 +14,6 @@ import Link from "next/link";
 import Navbar from "./Navbar";
 import { toggleTheme } from "@/lib/features/theme.slice";
 import { IconContext } from "react-icons/lib";
-import { handjet, ubuntu } from "@/app/fonts/fonts";
 import { IoIosArrowUp } from "react-icons/io";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { BsSunFill } from "react-icons/bs";
@@ -22,19 +21,19 @@ import { ImGithub } from "react-icons/im";
 
 const IconsLinks = [
   {
-    Icon: <CgMail className="text-red-600 text-3xl" />,
+    Icon: <CgMail className="text-red-600 text-2xl md:text-3xl" />,
     link: "mailto:kundankumarratu@gmail.com",
   },
   {
-    Icon: <ImGithub className="text-black text-2xl" />,
+    Icon: <ImGithub className="text-black text-xl md:text-2xl" />,
     link: "https://github.com/07kundan",
   },
   {
-    Icon: <FaXTwitter className="text-black text-xl" />,
+    Icon: <FaXTwitter className="text-black text-lg md:text-xl" />,
     link: "https://twitter.com/__auric",
   },
   {
-    Icon: <SiLinkedin className="text-blue-700 text-xl" />,
+    Icon: <SiLinkedin className="text-blue-700 text-lg md:text-xl" />,
     link: "https://linkedin.com/in/07kundan",
   },
 ];
@@ -119,35 +118,39 @@ function ChildrenComponent({
         transitionTimingFunction: "cubicBezier(0.4, 0, 0.2, 1)",
         transitionDuration: "400ms",
       }}
-      className={cn(playgroundIsActive ? "w-[62vw] " : "w-[93vw]", className)}
+      className={cn(
+        playgroundIsActive ? " md:w-[62vw] " : "md:w-[93vw]",
+        "w-full",
+        className
+      )}
     >
-      <span className="w-1 h-[28vh] absolute top-0 left-4 rounded-full bg-[#5d704f]/60 dark:bg-[#1d2026]"></span>
+      <span className="hidden md:block md:w-1 h-[28vh] absolute top-0 left-4 rounded-full bg-[#5d704f]/60 dark:bg-[#1d2026]"></span>
       <span
-        className={`absolute top-[42vh] left-4 -translate-x-1/2 -rotate-90 text-sm opacity-70 font-semibold`}
+        className={`hidden md:block absolute top-[42vh] left-2 md:left-4 -translate-x-1/2 -rotate-90 text-sm opacity-70 font-semibold`}
       >
         kundankumarratu@gmail.com
       </span>
 
       {/* social media links */}
 
-      <div className="fixed right-5 bottom-8 space-y-3 group/links pointer-events-auto">
-        <span className="w-1 h-[70vh] bg-[#5d704f]/60 group-hover/links:bg-[#4ebe03] absolute bottom-full right-1/2 translate-x-1/2 opacity-15 rounded-full group-hover/links:transition-all group-hover/links:opacity-100 dark:bg-[#7792c9] dark:group-hover/links:bg-[#313640]"></span>
-        <span className="w-1 h-8 bg-[#4ebe03] dark:bg-[#313640] absolute -bottom-8 right-1/2 translate-x-1/2 "></span>
+      <div className="fixed right-2 md:right-5 bottom-8 space-y-3 group/links pointer-events-auto">
+        <span className="w-0.5 md:w-1 h-[75vh]  bg-[#4ebe03] md:bg-[#5d704f]/60 group-hover/links:bg-[#4ebe03] absolute bottom-full right-1/2 translate-x-1/2 md:opacity-15 rounded-full group-hover/links:transition-all group-hover/links:opacity-100 dark:bg-[#313640] md:dark:bg-[#7792c9] dark:group-hover/links:bg-[#313640]"></span>
+        <span className="w-0.5 md:w-1 h-8 bg-[#4ebe03] dark:bg-[#313640] absolute -bottom-8 right-1/2 translate-x-1/2 "></span>
         <IconContext.Provider value={{ className: "" }}>
           {IconsLinks.map((item, index) => (
             <Link
               href={item.link}
               key={index}
-              className="h-10 w-10  items-center justify-center  rounded-full bg-[#AFD198] dark:bg-[#454850] flex opacity-15  group-hover/links:opacity-100  group-hover/links:transition-all group-hover/links:-translate-y-6 relative outline outline-2 outline-[#6d885b] dark:outline-[#252a35] "
+              className="h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-[#AFD198] dark:bg-[#454850] flex md:opacity-15  group-hover/links:opacity-100  group-hover/links:transition-all -translate-y-6 md:-translate-y-0 md:group-hover/links:-translate-y-6 relative outline outline-2 outline-[#6d885b] dark:outline-[#252a35] "
             >
-              <span className="w-[4vw] h-1 absolute top-1/2 left-full bg-[#5d704f]/60 dark:group-hover/links:bg-[#252a35] group-hover/links:bg-[#4ebe03] dark:bg-[#7792c9]"></span>
+              <span className="w-[5vw] h-0.5 md:h-1 absolute top-1/2 left-full bg-[#5d704f]/60 dark:group-hover/links:bg-[#252a35] group-hover/links:bg-[#4ebe03] dark:bg-[#252a35] md:dark:bg-[#7792c9] "></span>
               {item.Icon}
             </Link>
           ))}
           <motion.button
             animate={controls} // Attach the animation controls
             onClick={handleTheme}
-            className=" w-10 h-10 flex items-center justify-center rounded-full bg-[#AFD198] dark:bg-[#454850] outline outline-2 outline-[#6d885b] dark:outline-[#252a35] "
+            className=" w-8 h-8 md:h-10 md:w-10 flex items-center justify-center rounded-full bg-[#AFD198] dark:bg-[#454850] outline outline-2 outline-[#6d885b] dark:outline-[#252a35] "
           >
             {theme === "dark" ? (
               <BsSunFill className="text-orange-500 text-xl" />
@@ -171,9 +174,9 @@ function ChildrenComponent({
           }}
           className={cn(
             dragPlateIsActive
-              ? "h-[50vh] rounded-md bg-[#AFD198]/20 dark:bg-[#181b22]/30 pointer-events-auto outline outline-[#6d885b]/50 dark:outline-[#252a35]/50 backdrop-blur-sm"
+              ? "h-[48vh] md:h-[50vh] rounded-md bg-[#AFD198]/20 dark:bg-[#181b22]/30 pointer-events-auto outline outline-[#6d885b]/50 dark:outline-[#252a35]/50 backdrop-blur-sm"
               : "h-[5vh] backdrop-blur-0",
-            "absolute bottom-0 left-1/2 -translate-x-1/2 w-[25vw] flex items-end z-10"
+            "absolute bottom-0 left-1/2 -translate-x-1/2 w-full md:w-[25vw] flex items-end z-10"
           )}
         >
           {/* top button */}
@@ -188,7 +191,7 @@ function ChildrenComponent({
               dragPlateIsActive
                 ? "rounded-none rounded-es-lg rounded-ee-lg"
                 : "rounded-none rounded-ss-lg rounded-se-lg ",
-              "w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2 bg-[#AFD198] dark:bg-[#181b22] pointer-events-auto outline outline-[#6d885b] dark:outline-[#252a35]"
+              "w-1/2 md:w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2 bg-[#AFD198] dark:bg-[#181b22] pointer-events-auto outline outline-[#6d885b] dark:outline-[#252a35]"
             )}
           >
             <div
@@ -231,8 +234,10 @@ function ChildrenComponent({
 
       <Navbar
         className={cn(
-          playgroundIsActive ? "w-[62vw] px-[4vw]" : "w-[93vw] px-[6vw]",
-          "fixed top-4"
+          playgroundIsActive
+            ? " md:w-[62vw] md:px-[4vw]"
+            : "md:w-[93vw] md:px-[6vw]",
+          "fixed top-4  w-full px-10"
         )}
         dragPlateIsActive={dragPlateIsActive}
         pathname={pathname}
@@ -241,9 +246,13 @@ function ChildrenComponent({
       {/* page.tsx */}
       <div
         className={cn(
-          playgroundIsActive ? "px-[2vw] mx-8 ml-16" : "px-[4vw] mx-8 ml-32",
-          "relative h-screen pt-14 pb-8 "
+          playgroundIsActive ? "md:mx-[3vw]" : "md:mx-[6vw]",
+          "h-screen mx-[5vw] md:pt-14 relative"
         )}
+        // className={cn(
+        //   playgroundIsActive ? "px-[2vw] mx-8 ml-16" : "px-[4vw] mx-8 ml-32",
+        //   "relative h-screen pt-14 pb-8 "
+        // )}
       >
         {children}
       </div>
