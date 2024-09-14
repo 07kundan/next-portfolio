@@ -10,19 +10,19 @@ import { SiHyperskill } from "react-icons/si";
 const NavItems = [
   {
     name: "profile",
-    icon: <CgProfile className="text-lg" />,
+    icon: <CgProfile className="text-3xl" />,
   },
   {
     name: "skills",
-    icon: <SiHyperskill />,
+    icon: <SiHyperskill className="text-2xl" />,
   },
   {
     name: "projects",
-    icon: <FaProjectDiagram />,
+    icon: <FaProjectDiagram className="text-2xl" />,
   },
   {
     name: "feedbacks",
-    icon: <FaRegMessage />,
+    icon: <FaRegMessage className="text-2xl" />,
   },
 ];
 

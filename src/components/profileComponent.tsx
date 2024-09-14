@@ -60,7 +60,7 @@ function ProfileComponent() {
       </HeadComponent>
       {/* description */}
       <div className="w-full flex flex-col-reverse md:flex-row h-full">
-        <div className="h-1/2 md:w-2/3 md:h-full flex flex-col items-center justify-center pb-24 md:pl-4 gap-8 pr-2 md:pr-0">
+        <div className="h-[55%] md:w-2/3 md:h-full flex flex-col items-center justify-center pb-24 md:pl-4 gap-8 pr-2 md:pr-0">
           <div className="text-lg md:text-xl space-y-6 md:space-y-8  max-w-full">
             <div className="pl-6">
               <p className="font-medium md:font-semibold text-xl md:text-2xl">
@@ -191,8 +191,8 @@ function ProfileComponent() {
         </div>
 
         {/* image */}
-        <div className="h-1/2 md:w-1/2 md:h-full flex justify-center items-center">
-          <Image src={ProfilePng} alt="Image" height={400} />
+        <div className="h-[45%] md:w-1/2 md:h-full flex justify-center items-end md:items-center ">
+          <Image src={ProfilePng} alt="Image" height={300} />
         </div>
       </div>
     </>

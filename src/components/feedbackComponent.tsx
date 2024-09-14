@@ -60,7 +60,7 @@ function FeedbackComponent() {
         <MdFeedback className="text-xl" />
       </HeadComponent>
       <div className="h-full pt-20 pb-16 px-4 md:p-3 gap-4 md:flex ">
-        <div className="h-1/2 md:h-full md:w-2/3  p-4">
+        <div className="h-[45%] md:h-full md:w-2/3  p-4">
           {messages.length === 0 ? (
             <div
               className={cn(
@@ -76,7 +76,7 @@ function FeedbackComponent() {
           )}
         </div>
 
-        <div className=" w-full h-1/2 md:h-full md:w-1/2 md:px-6">
+        <div className="w-full h-[55%] md:h-full md:w-1/2 md:px-6">
           <WriteFeedback />
         </div>
       </div>
@@ -111,7 +111,7 @@ function Cards({ messages }: { messages: SanityDocument[] }) {
 const formSchema = z
   .object({
     identification: z.string().nonempty("Please select identification"),
-    name: z.string().optional(),
+    name: z.string(),
     message: z.string().min(5, "Message must be at least 5 characters long"),
   })
   .refine(
@@ -146,7 +146,7 @@ function WriteFeedback() {
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      identification: "Anonymous",
+      identification: "Your Name",
       name: "",
       message: "",
     },
@@ -154,7 +154,6 @@ function WriteFeedback() {
 
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isUsingAI, setIsUsingAI] = useState<boolean>(false);
-  const [selectedValue, setSelectedValue] = useState("Your Name");
 
   // onSubmitting message gets send to sanity
   const onSubmit = async (data: data) => {
@@ -181,7 +180,6 @@ function WriteFeedback() {
         toast.error("Failed");
       }
     }
-    setSelectedValue("");
     reset();
   };
 
@@ -216,6 +214,8 @@ function WriteFeedback() {
       setIsGenerating(false);
     }
   };
+
+  const selectedValue = watch("identification"); // Use watch to get the current value
 
   return (
     <div className=" w-full pointer-events-auto h-full md:pt-4">
@@ -303,12 +303,7 @@ function WriteFeedback() {
                 render={({ field }) => (
                   <select
                     value={field.value}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      console.log(e.target.value);
-                      setSelectedValue(value); // Update local state
-                      field.onChange(value); // Update react-hook-form state
-                    }}
+                    onChange={field.onChange} // Directly use field.onChange
                     className="w-full bg-zinc-900/80  font-bold border rounded-md flex items-center justify-center py-1.5 md:py-2 px-2 tracking-normal border-[#122b34]"
                   >
                     <option

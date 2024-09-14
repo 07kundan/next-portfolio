@@ -226,7 +226,7 @@ function ChildrenComponent({
                 transitionDuration: "300ms",
               }}
             >
-              <DragPlate className="w-[38vh] h-[38vh] bg-[#AFD198]/50 dark:bg-[#073140]/50 outline outline-2 outline-[#637c52]/60 font-semibold dark:outline-[#045674]/80 " />
+              <DragPlate className="w-[38vh] h-[38vh] md:w-[38vh] md:h-[38vh] bg-[#AFD198]/50 dark:bg-[#073140]/50 outline outline-2 outline-[#637c52]/60 font-semibold dark:outline-[#045674]/80 " />
             </div>
           </div>
         </div>
@@ -237,7 +237,7 @@ function ChildrenComponent({
           playgroundIsActive
             ? " md:w-[62vw] md:px-[4vw]"
             : "md:w-[93vw] md:px-[6vw]",
-          "fixed top-4  w-full px-10"
+          "fixed top-4  w-full px-8"
         )}
         dragPlateIsActive={dragPlateIsActive}
         pathname={pathname}
@@ -247,7 +247,7 @@ function ChildrenComponent({
       <div
         className={cn(
           playgroundIsActive ? "md:mx-[3vw]" : "md:mx-[6vw]",
-          "h-screen mx-[5vw] md:pt-14 relative"
+          "h-screen mx-[7vw] md:pt-14 relative "
         )}
         // className={cn(
         //   playgroundIsActive ? "px-[2vw] mx-8 ml-16" : "px-[4vw] mx-8 ml-32",

@@ -4,6 +4,8 @@ import HeadComponent from "./headComponent";
 import { FaProjectDiagram } from "react-icons/fa";
 import { BsProjector } from "react-icons/bs";
 import { ubuntu } from "@/app/fonts/fonts";
+// import zedkart from "../../public/zedkart.mp4";
+import Image from "next/image";
 
 const CardDetails = [
   {
@@ -11,6 +13,7 @@ const CardDetails = [
     description: (
       <div className="">
         <ul className="list-disc">
+          <li>Personal Portfolio to showcase skills and works</li>
           <li>Integrated AI to genrate Feedback.</li>
           <li>
             Use Sanity(CMS) to manage the creation and modification of content.
@@ -20,61 +23,87 @@ const CardDetails = [
         </ul>
       </div>
     ),
-    gif: "dj",
-    technologies:
-      "Nextjs, Typescript, Redux, Zod, Tailwindcss, Framer-Motino, Sanity",
+    gif: "/",
+    technologies: (
+      <span>
+        &#x2022;NextJs&nbsp; &#x2022;Typescript&nbsp; &#x2022;Tailwindcss&nbsp;
+        &#x2022;React-Redux&nbsp; &#x2022;Zod&nbsp; &#x2022;Framer-Motion&nbsp;
+        &#x2022;Sanity
+      </span>
+    ),
+    liveLink: "https://auric-one.vercel.app/",
+    repoLink: "https://github.com/07kundan/next-portfolio",
   },
   {
     name: "Vision-Vista",
     description: (
       <div className="">
         <ul className="list-disc">
-          <li>Integrated AI to genrate Feedback.</li>
+          <li>Online video streaming and community tweet platform,</li>
+          <li>React-Query for efficient data fetching,caching.</li>
+          <li>React-hook-form for dynamic forms.</li>
+          <li>Redux-toolkit for global state management.</li>
+          <li>Zod for Schema Validation.</li>
+          <li>Developed backend APIs using ExpressJs.</li>
           <li>
-            Use Sanity(CMS) to manage the creation and modification of content.
+            Multer, cloudinary, and sharp for file uploading, image processing,
+            and cloud-based media storage.
           </li>
-          <li>Global state management with Redux.</li>
-          <li>Sleek Animation with Framer-motion.</li>
         </ul>
       </div>
     ),
-    gif: "dj",
-    technologies:
-      "Reactjs, Redux, React-Query, TailwindCss, Nodejs, Expressjs, MongoDB",
+    gif: "/",
+    technologies: (
+      <span>
+        &#x2022;ReactJs&nbsp; &#x2022;TailwindCss&nbsp;
+        &#x2022;React-Redux&nbsp; &#x2022;React-Hook-Form&nbsp;
+        &#x2022;Zod&nbsp; &#x2022;React-Query&nbsp; &#x2022;ExpressJs&nbsp;
+        &#x2022;MongoDB&nbsp; &#x2022;Multer&nbsp; &#x2022;Cloudinary
+      </span>
+    ),
+    liveLink: "https://vision-vista.vercel.app/",
+    repoLink: "https://github.com/07kundan/VisionVista",
   },
   {
     name: "Zed-Kart",
     description: (
       <div className="">
         <ul className="list-disc">
-          <li>Integrated AI to genrate Feedback.</li>
-          <li>
-            Use Sanity(CMS) to manage the creation and modification of content.
-          </li>
-          <li>Global state management with Redux.</li>
+          <li>Animation heavy E-Commerce website.</li>
+          <li>Utilized Appwrite for authentication and storing User's data</li>
           <li>Sleek Animation with Framer-motion.</li>
+          <li>React-Router-Dom for routing.</li>
+          <li>Swiper for Carousel Effect</li>
         </ul>
       </div>
     ),
-    gif: "dj",
-    technologies: "Reactjs, TailwindCss, ContextApi, Framer-Motion, Appwrite",
+    gif: "/",
+    technologies: (
+      <span>
+        &#x2022;ReactJs&nbsp; &#x2022;TailwindCss&nbsp; &#x2022;Appwrite
+      </span>
+    ),
+    liveLink: "https://zed-kart.netlify.app/",
+    repoLink: "https://github.com/07kundan/E-Commerce",
   },
   {
     name: "CleverBook",
     description: (
       <div className="">
         <ul className="list-disc">
-          <li>Integrated AI to genrate Feedback.</li>
-          <li>
-            Use Sanity(CMS) to manage the creation and modification of content.
-          </li>
-          <li>Global state management with Redux.</li>
+          <li>Landing Page for Online-Book store and showcasing creativity.</li>
           <li>Sleek Animation with Framer-motion.</li>
         </ul>
       </div>
     ),
-    gif: "dj",
-    technologies: "Reactjs, Tailwindcss, Aceternity, Framer-Motion",
+    gif: "/",
+    technologies: (
+      <span>
+        &#x2022;ReactJs&nbsp; &#x2022;TailwindCss&nbsp; &#x2022;Framer-Motion
+      </span>
+    ),
+    liveLink: "https://cleverbook.netlify.app/",
+    repoLink: "https://github.com/07kundan/cleverBooks",
   },
 ];
 
@@ -101,6 +130,8 @@ const ProjectComponent = memo(function ProjectComponent() {
                   description={item.description}
                   gif={item.gif}
                   technologies={item.technologies}
+                  liveLink={item.liveLink}
+                  repoLink={item.repoLink}
                 />
               </div>
             ))}
@@ -118,14 +149,18 @@ const ProjectCard = memo(function ProjectCard({
   description,
   gif,
   technologies,
+  liveLink,
+  repoLink,
 }: {
   name: string;
   description: React.ReactNode;
   gif: string;
-  technologies: string;
+  technologies: React.ReactNode;
+  liveLink: string;
+  repoLink: string;
 }) {
   return (
-    <div className=" border-2 border-[#04222d] rounded-2xl  text-[#6cd8ff] bg-[#0c4357] shadow-2xl py-3 space-y-3 md:px-8 ">
+    <div className="border-2 border-[#04222d] rounded-2xl text-[#6cd8ff] bg-[#0c4357] shadow-2xl py-3 space-y-3 md:px-8 ">
       {/* heading */}
       <h2
         className={`${ubuntu.className} font-semibold underline text-xl underline-offset-2 text-[#DD5746] text-center py-1 `}
@@ -134,7 +169,7 @@ const ProjectCard = memo(function ProjectCard({
       </h2>
 
       {/* content */}
-      <div className="flex flex-col-reverse md:flex-row">
+      <div className="flex flex-col-reverse md:flex-row ">
         <div className="md:w-[70%] md:h-full flex flex-col space-y-5 p-2">
           <div className="font-semibold space-y-1">
             <h2
@@ -142,7 +177,7 @@ const ProjectCard = memo(function ProjectCard({
             >
               Description-:
             </h2>
-            <div className="font-medium text-sm md:text-base md:font-bold pl-4">
+            <div className="font-medium text-sm md:text-base  pl-4">
               {description}
             </div>
           </div>
@@ -152,27 +187,27 @@ const ProjectCard = memo(function ProjectCard({
             >
               Tech-stack-:
             </h2>
-            <div className="font-semibold text-xs md:text-base md:font-bold pl-4">
+            <div className="font-medium text-xs md:text-base pl-2 md:pl-4">
               {technologies}
             </div>
           </div>
         </div>
 
-        <div className="md:w-1/2 md:h-full  flex flex-col items-center justify-between py-4">
-          <p>{gif}</p>
+        <div className="md:w-1/2 flex flex-col items-center justify-between py-4 bg-lime-800">
+          <Image src={gif} alt="mp4" height={300} width={300} />
         </div>
       </div>
 
       {/* Links */}
-      <div className="w-full flex justify-between items-center px-4 md:px-8">
+      <div className="w-full flex justify-between items-center px-4 md:px-8 py-2">
         <Link
-          href={"/"}
+          href={`${liveLink}`}
           className="bg-[#5cbfe2] text-[#0c4357] font-semibold md:font-bold rounded-md text-sm md:text-base px-3 py-1"
         >
           Live Link
         </Link>
         <Link
-          href={"/"}
+          href={`${repoLink}`}
           className="bg-[#5cbfe2] text-[#0c4357] font-semibold md:font-bold rounded-md text-sm md:text-base px-3 py-1"
         >
           Github Repo
