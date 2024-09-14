@@ -145,7 +145,7 @@ function SubComponent({
 
     getRandomNumber();
     toSetGuessString();
-  }, []);
+  }, [dispatch]);
   const onSubmit = (values: z.infer<typeof formSchmea>) => {
     console.log("submitting");
     const typedString = values.answerBox;
@@ -234,7 +234,9 @@ function SubComponent({
           </h1>
           <h2 className="flex flex-wrap justify-center items-center text-pretty gap-1 py-4 font-semibold text-base tracking-tight">
             Find the correct box and type
-            <span className="font-bold text-xl">"{stringToCheck}" </span>
+            <span className="font-bold text-xl">
+              &quot{stringToCheck}&quot{" "}
+            </span>
             to get khatti toffee
             <button
               onClick={toSetGuessString}
