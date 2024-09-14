@@ -96,7 +96,7 @@ const ProjectComponent = memo(function ProjectComponent() {
           {/* <FocusCards cards={cards} /> */}
           <div className="w-[85%] overflow-hidden overflow-y-scroll pointer-events-auto space-y-12  pt-8">
             {CardDetails.map((item) => (
-              <div key={item.name} className="h-3/4">
+              <div key={item.name} className="min-h-3/4">
                 <ProjectCard
                   name={item.name}
                   description={item.description}
@@ -126,29 +126,29 @@ const ProjectCard = memo(function ProjectCard({
   technologies: string;
 }) {
   return (
-    <div className="flex border-2 border-[#04222d] rounded-2xl p-4 h-full text-[#6cd8ff] bg-[#0c4357] shadow-2xl">
+    <div className="flex border-2 border-[#04222d] rounded-2xl p-4  text-[#6cd8ff] bg-[#0c4357] shadow-2xl">
       <div className="w-[60%] h-full flex flex-col space-y-5  p-2 ">
         <h2
           className={`${ubuntu.className} font-bold text-xl underline underline-offset-2 text-[#DD5746] text-right`}
         >
           {name}
         </h2>
-        <p className="font-semibold space-y-2">
+        <div className="font-semibold space-y-2">
           <h2
             className={`${ubuntu.className} font-bold text-xl underline underline-offset-2 text-[#DD5746]`}
           >
             Description-:
           </h2>
-          <p className="font-bold pl-4">{description}</p>
-        </p>
-        <p className="space-y-2">
+          <div className="font-bold pl-4">{description}</div>
+        </div>
+        <div className="space-y-2">
           <h2
             className={`${ubuntu.className} font-bold text-xl underline underline-offset-2 text-[#DD5746]`}
           >
             TechStack-:
           </h2>
           <p className="font-bold">{technologies}</p>
-        </p>
+        </div>
       </div>
 
       <div className="w-1/2 h-full  flex flex-col items-center justify-between py-4">

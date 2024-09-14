@@ -102,22 +102,22 @@ function DragPlate({ className }: { className: string }) {
           //   strokeWidth={4}
         ></path>
 
-        <text className="text-xs fill-amber-500">
+        <text className="text-xs fill-[#DD5746]">
           <textPath href="#circlePath1" startOffset="20%">
             Profile
           </textPath>
         </text>
-        <text className="text-xs fill-amber-500">
+        <text className="text-xs fill-[#DD5746]">
           <textPath href="#circlePath2" startOffset="20%">
             Skills
           </textPath>
         </text>
-        <text className="text-xs fill-amber-500">
+        <text className="text-xs fill-[#DD5746]">
           <textPath href="#circlePath3" startOffset="20%">
             Projects
           </textPath>
         </text>
-        <text className="text-xs fill-amber-500">
+        <text className="text-xs fill-[#DD5746]">
           <textPath href="#circlePath4" startOffset="20%">
             Feedbacks
           </textPath>

@@ -2,7 +2,7 @@
 import { CgMail } from "react-icons/cg";
 import { SiLinkedin } from "react-icons/si";
 import { FaXTwitter } from "react-icons/fa6";
-import { setIsActive } from "@/lib/features/playground.slice";
+import { motion, useAnimation } from "framer-motion";
 import { RootState } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -56,6 +56,8 @@ function ChildrenComponent({
   );
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const controls = useAnimation(); // Hook to control the animation
+
   useEffect(() => {
     if (pathname === "/") {
       setIsVisible(false);
@@ -66,9 +68,39 @@ function ChildrenComponent({
     // dispatch(setIsActive(pathname));
   }, [pathname]);
 
-  const handleTheme = () => {
-    if (theme === "dark") dispatch(toggleTheme("light"));
-    else dispatch(toggleTheme("dark"));
+  useEffect(() => {
+    const animate = async () => {
+      await controls.start({
+        rotate: 360,
+        transition: {
+          duration: 0.5,
+          ease: "backInOut",
+        },
+      });
+
+      // Reset rotation to 0 after animation completes
+      controls.set({ rotate: 0 });
+    };
+    animate();
+  });
+
+  const handleTheme = async () => {
+    if (theme === "dark") {
+      dispatch(toggleTheme("light"));
+    } else {
+      dispatch(toggleTheme("dark"));
+    }
+
+    await controls.start({
+      rotate: 360,
+      transition: {
+        duration: 0.5,
+        ease: "backInOut",
+      },
+    });
+
+    // Reset rotation to 0 after animation completes
+    controls.set({ rotate: 0 });
   };
 
   const handleToggle = () => {
@@ -112,7 +144,8 @@ function ChildrenComponent({
               {item.Icon}
             </Link>
           ))}
-          <button
+          <motion.button
+            animate={controls} // Attach the animation controls
             onClick={handleTheme}
             className=" w-10 h-10 flex items-center justify-center rounded-full bg-[#AFD198] dark:bg-[#454850] outline outline-2 outline-[#6d885b] dark:outline-[#252a35] "
           >
@@ -121,7 +154,7 @@ function ChildrenComponent({
             ) : (
               <BsFillMoonStarsFill className="text-sky-500 text-xl" />
             )}
-          </button>
+          </motion.button>
         </IconContext.Provider>
       </div>
 
@@ -190,7 +223,7 @@ function ChildrenComponent({
                 transitionDuration: "300ms",
               }}
             >
-              <DragPlate className="w-[38vh] h-[38vh] bg-blue-800/20 outline outline-1 outline-blue-600/60 text-xs" />
+              <DragPlate className="w-[38vh] h-[38vh] bg-[#AFD198]/50 dark:bg-[#073140]/50 outline outline-2 outline-[#637c52]/60 font-semibold dark:outline-[#045674]/80 " />
             </div>
           </div>
         </div>

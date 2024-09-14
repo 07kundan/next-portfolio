@@ -30,7 +30,7 @@ function SkillList({ data }: { data: skillSchema }) {
       <div
         className={cn(
           playgroundIsActive ? "gap-[3vw] mx-[2vw]" : "gap-[4vw] mx-[6vw]",
-          "inline-flex flex-wrap justify-center items-center pt-8 "
+          "inline-flex flex-wrap justify-center items-center pt-10 "
         )}
       >
         {data?.skills?.map((item, index) => (
@@ -53,7 +53,7 @@ function SkillList({ data }: { data: skillSchema }) {
               <span className=" bg-[#72a9bc] text-[#0c4357] font-bold px-3 py-1 text-sm whitespace-nowrap hidden group-hover/item:inline-flex absolute -top-10 left-1/2 -translate-x-1/2 z-20 rounded-sm">
                 {item.name}
               </span>
-              <div className="w-[6vh] h-[6vh] flex items-center justify-center">
+              <div className="w-[6.5vh] h-[6.5vh] flex items-center justify-center">
                 <Image
                   src={ImageurlFor(item.logo).url()}
                   alt={item.name}

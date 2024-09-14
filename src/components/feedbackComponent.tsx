@@ -360,13 +360,13 @@ function WriteFeedback() {
           <Button
             type="submit"
             variant={"outline"}
-            className="bg-[#295b6d] text-[#DD5746] font-bold text-lg"
+            className=" font-bold text-lg"
           >
             Submit
           </Button>
           {isUsingAI && (
             <Button
-              className="bg-[#295b6d] text-[#DD5746] font-bold text-lg"
+              className=" font-bold text-lg"
               type="button"
               variant={"outline"}
               onClick={generateMessage}
