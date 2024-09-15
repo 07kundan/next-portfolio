@@ -176,7 +176,7 @@ function ChildrenComponent({
             dragPlateIsActive
               ? "h-[48vh] md:h-[50vh] rounded-md bg-[#AFD198]/20 dark:bg-[#181b22]/30 pointer-events-auto outline outline-[#6d885b]/50 dark:outline-[#252a35]/50 backdrop-blur-sm"
               : "h-[5vh] backdrop-blur-0",
-            "absolute bottom-0 left-1/2 -translate-x-1/2 w-full md:w-[25vw] flex items-end z-10"
+            "absolute bottom-3 md:bottom-0 left-1/2 -translate-x-1/2 w-full md:w-[25vw] flex items-end z-10"
           )}
         >
           {/* top button */}
@@ -249,10 +249,6 @@ function ChildrenComponent({
           playgroundIsActive ? "md:mx-[3vw]" : "md:mx-[6vw]",
           "h-screen mx-[7vw] md:pt-14 relative "
         )}
-        // className={cn(
-        //   playgroundIsActive ? "px-[2vw] mx-8 ml-16" : "px-[4vw] mx-8 ml-32",
-        //   "relative h-screen pt-14 pb-8 "
-        // )}
       >
         {children}
       </div>

@@ -36,8 +36,8 @@ export default function RootLayout({
             duration: 2000,
           }}
         />
-        <HeroHighlightComponent classname="min-h-screen fixed top-0 left-0">
-          <div className="pointer-events-none h-full w-full overflow-y-scroll">
+        <HeroHighlightComponent classname="min-h-screen md:fixed top-0 left-0">
+          <div className="pointer-events-none h-full w-full">
             <App>
               <div>
                 <PlayGroundComponent className="absolute top-0 left-0 border-r-8 border-[#637c52] bg-[#AFD198] dark:bg-[#181b22] dark:border-[#1e1818] hidden md:block" />
