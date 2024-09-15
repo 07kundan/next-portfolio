@@ -1,11 +1,10 @@
-import React, { memo } from "react";
+"use client";
+import React, { memo, useEffect, useRef } from "react";
 import Link from "next/link";
 import HeadComponent from "./headComponent";
 import { FaProjectDiagram } from "react-icons/fa";
 import { BsProjector } from "react-icons/bs";
 import { ubuntu } from "@/app/fonts/fonts";
-// import zedkart from "../../public/zedkart.mp4";
-import Image from "next/image";
 
 const CardDetails = [
   {
@@ -23,7 +22,7 @@ const CardDetails = [
         </ul>
       </div>
     ),
-    gif: "/",
+    gif: "/portfolio.mp4",
     technologies: (
       <span>
         &#x2022;NextJs&nbsp; &#x2022;Typescript&nbsp; &#x2022;Tailwindcss&nbsp;
@@ -52,7 +51,7 @@ const CardDetails = [
         </ul>
       </div>
     ),
-    gif: "/",
+    gif: "/vision-vista.mp4",
     technologies: (
       <span>
         &#x2022;ReactJs&nbsp; &#x2022;TailwindCss&nbsp;
@@ -77,7 +76,7 @@ const CardDetails = [
         </ul>
       </div>
     ),
-    gif: "/",
+    gif: "/zedkart.mp4",
     technologies: (
       <span>
         &#x2022;ReactJs&nbsp; &#x2022;TailwindCss&nbsp; &#x2022;Appwrite
@@ -96,7 +95,7 @@ const CardDetails = [
         </ul>
       </div>
     ),
-    gif: "/",
+    gif: "/cleverBook.mp4",
     technologies: (
       <span>
         &#x2022;ReactJs&nbsp; &#x2022;TailwindCss&nbsp; &#x2022;Framer-Motion
@@ -109,6 +108,14 @@ const CardDetails = [
 
 const ProjectComponent = memo(function ProjectComponent() {
   // console.log("component was rendered at", new Date().toLocaleTimeString());
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    // Set the playback speed when the component mounts
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 2.5; // 1.5x speed
+    }
+  }, []);
 
   return (
     <>
@@ -126,6 +133,7 @@ const ProjectComponent = memo(function ProjectComponent() {
             {CardDetails.map((item) => (
               <div key={item.name} className="min-h-3/4">
                 <ProjectCard
+                  videoRef={videoRef}
                   name={item.name}
                   description={item.description}
                   gif={item.gif}
@@ -151,6 +159,7 @@ const ProjectCard = memo(function ProjectCard({
   technologies,
   liveLink,
   repoLink,
+  videoRef,
 }: {
   name: string;
   description: React.ReactNode;
@@ -158,7 +167,9 @@ const ProjectCard = memo(function ProjectCard({
   technologies: React.ReactNode;
   liveLink: string;
   repoLink: string;
+  videoRef: React.RefObject<HTMLVideoElement>;
 }) {
+  console.log(liveLink, repoLink);
   return (
     <div className="border-2 border-[#04222d] rounded-2xl text-[#6cd8ff] bg-[#0c4357] shadow-2xl py-3 space-y-3 md:px-8 ">
       {/* heading */}
@@ -193,21 +204,37 @@ const ProjectCard = memo(function ProjectCard({
           </div>
         </div>
 
-        <div className="md:w-1/2 flex flex-col items-center justify-between py-4 bg-lime-800">
-          <Image src={gif} alt="mp4" height={300} width={300} />
+        <div className="md:w-1/2 flex  items-center justify-between py-4 ">
+          <video
+            className="shadow-2xl rounded-lg"
+            ref={videoRef}
+            width="600"
+            controls
+            autoPlay
+            muted
+            loop
+            src={gif}
+          >
+            <source src={`${gif}`} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 
       {/* Links */}
       <div className="w-full flex justify-between items-center px-4 md:px-8 py-2">
         <Link
-          href={`${liveLink}`}
+          href={liveLink}
+          target="_blank"
+          rel="noopener noreferrer"
           className="bg-[#5cbfe2] text-[#0c4357] font-semibold md:font-bold rounded-md text-sm md:text-base px-3 py-1"
         >
           Live Link
         </Link>
         <Link
           href={`${repoLink}`}
+          target="_blank"
+          rel="noopener noreferrer"
           className="bg-[#5cbfe2] text-[#0c4357] font-semibold md:font-bold rounded-md text-sm md:text-base px-3 py-1"
         >
           Github Repo

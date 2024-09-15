@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     // console.log(req);
     const { keyword } = await req.json();
-    const prompt = `write me a feedback for a person based on keywords ${keyword} or "${keyword}"`;
+    const prompt = `write me a feedback for a person whose name is Kundan based on keywords ${keyword} or "${keyword}"`;
     // console.log(prompt);
     const { text } = await generateText({
       model: google("gemini-1.5-pro-latest"),

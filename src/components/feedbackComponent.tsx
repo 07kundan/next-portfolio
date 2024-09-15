@@ -157,6 +157,11 @@ function WriteFeedback() {
 
   // onSubmitting message gets send to sanity
   const onSubmit = async (data: data) => {
+    const currentDate = new Date();
+
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
     const { message, name, identification } = data;
     // console.log("submitting", data);
     const username = identification === "Anonymous" ? "Anonymous" : name;
@@ -164,7 +169,7 @@ function WriteFeedback() {
       _type: "feedbacks",
       name: username,
       message,
-      timestamp: new Date().toISOString(),
+      timestamp: `${day}-${month}-${year}`,
     };
 
     // trycatch for creating message
@@ -263,7 +268,7 @@ function WriteFeedback() {
               isUsingAI
                 ? isGenerating
                   ? ""
-                  : "Write your Prompt or just some keyword e.g keyword1, keyword2..."
+                  : "Write your Prompt or just some keyword e.g 'good boy👦', 'selfish🙂'..."
                 : isGenerating
                   ? ""
                   : "Type your message here..."
