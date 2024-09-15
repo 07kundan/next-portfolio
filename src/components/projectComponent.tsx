@@ -69,7 +69,9 @@ const CardDetails = [
       <div className="">
         <ul className="list-disc">
           <li>Animation heavy E-Commerce website.</li>
-          <li>Utilized Appwrite for authentication and storing User's data</li>
+          <li>
+            Utilized Appwrite for authentication and storing User&lsquo;s data
+          </li>
           <li>Sleek Animation with Framer-motion.</li>
           <li>React-Router-Dom for routing.</li>
           <li>Swiper for Carousel Effect</li>
