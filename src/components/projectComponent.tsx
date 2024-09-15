@@ -15,7 +15,7 @@ const CardDetails = [
           <li>Personal Portfolio to showcase skills and works</li>
           <li>Integrated AI to genrate Feedback.</li>
           <li>
-            Use Sanity(CMS) to manage the creation and modification of content.
+            Used Sanity(CMS) to manage the creation and modification of content.
           </li>
           <li>Global state management with Redux.</li>
           <li>Sleek Animation with Framer-motion.</li>

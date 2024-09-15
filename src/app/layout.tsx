@@ -6,6 +6,7 @@ import App from "@/components/app";
 import ChildrenComponent from "@/components/child-component/ChildrenComponent";
 import { inter } from "@/app/fonts/fonts";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
   children,
@@ -48,6 +49,7 @@ export default function RootLayout({
             </App>
           </div>
         </HeroHighlightComponent>
+        <Analytics />
       </body>
     </html>
   );
