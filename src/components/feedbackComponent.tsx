@@ -95,7 +95,7 @@ function Cards({ messages }: { messages: SanityDocument[] }) {
         {messages.map((item, index) => (
           <BentoGridItem
             key={index}
-            className={`${(index + 1) % 4 === 1 || (index + 1) % 4 === 0 ? "md:col-span-3 " : "md:col-span-2"} text-[#6cd8ff] bg-transparent/50 outline outline-[#22657d]`}
+            className={`${(index + 1) % 4 === 1 || (index + 1) % 4 === 0 ? "md:col-span-3 " : "md:col-span-2"} text-[#22657d] dark:text-[#4793AF] outline outline-[#22657d]`}
             description={item.message}
             title={item.name}
             header={item.timestamp}
@@ -157,19 +157,18 @@ function WriteFeedback() {
 
   // onSubmitting message gets send to sanity
   const onSubmit = async (data: data) => {
-    const currentDate = new Date();
+    const currentDate = new Date().toDateString();
 
-    const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1;
-    const year = currentDate.getFullYear();
     const { message, name, identification } = data;
     // console.log("submitting", data);
+    // console.log(typeof identification, identification);
+    // console.log(identification === "Anonymous");
     const username = identification === "Anonymous" ? "Anonymous" : name;
     const newMessage = {
       _type: "feedbacks",
       name: username,
       message,
-      timestamp: `${day}-${month}-${year}`,
+      timestamp: currentDate,
     };
 
     // trycatch for creating message
@@ -254,15 +253,17 @@ function WriteFeedback() {
         </div>
 
         {/* Message textarea */}
-        <div className="space-y-0.5 relative w-11/12 h-[70%] md:h-[75%] text-white m-auto ">
+        <div className="space-y-0.5 relative w-11/12 h-[70%] md:h-[75%] text-black dark:text-[#4793AF] m-auto ">
           {errors.message && (
             <p className="text-red-500 text-xs">{errors.message.message}</p>
           )}
           <textarea
             disabled={isGenerating ? true : false}
             className={cn(
-              isGenerating ? "bg-zinc-950/90 " : "bg-zinc-900/80 ",
-              "border-2  border-[#133441] w-full h-full p-4 rounded-lg placeholder:text-xs text-sm"
+              isGenerating
+                ? "bg-[#4793AF]/70 dark:bg-zinc-950/90 "
+                : "bg-[#4793AF]/40 dark:bg-zinc-900/80 ",
+              "border-2  border-[#2f9bc2] dark:border-[#133441] w-full h-full p-4 rounded-lg placeholder:text-xs text-sm"
             )}
             placeholder={
               isUsingAI
@@ -309,17 +310,17 @@ function WriteFeedback() {
                   <select
                     value={field.value}
                     onChange={field.onChange} // Directly use field.onChange
-                    className="w-full bg-zinc-900/80  font-bold border rounded-md flex items-center justify-center py-1.5 md:py-2 px-2 tracking-normal border-[#122b34]"
+                    className="w-full bg-white dark:bg-zinc-900/80  font-bold border rounded-md flex items-center justify-center py-1.5 md:py-2 px-2 tracking-normal border-[#122b34]"
                   >
                     <option
-                      className="bg-zinc-900/80 border-[#122b34] font-bold"
+                      className=" bg-white dark:bg-zinc-900/80 border-[#122b34] font-bold"
                       value="Your Name"
                     >
                       Your Name
                     </option>
                     <option
-                      className="bg-zinc-900/80 border-[#122b34] font-bold"
-                      value="Anonymous "
+                      className=" bg-white dark:bg-zinc-900/80 border-[#122b34] font-bold"
+                      value="Anonymous"
                     >
                       Anonymous
                     </option>
@@ -337,7 +338,7 @@ function WriteFeedback() {
             {selectedValue === "Your Name" && (
               <div className="space-y-0.5">
                 <Input
-                  className="bg-zinc-900/80  placeholder:text-[#4793AF] font-bold border rounded-md flex items-center justify-center py-1.5 md:py-2 px-2 tracking-normal border-[#122b34]  placeholder:text-xs md:placeholder:text-sm"
+                  className="bg-white dark:bg-zinc-900/80  placeholder:text-[#4793AF] font-bold border rounded-md flex items-center justify-center py-1.5 md:py-2 px-2 tracking-normal border-[#122b34]  placeholder:text-xs md:placeholder:text-sm"
                   type="text"
                   placeholder="Enter your name"
                   {...register("name")}
