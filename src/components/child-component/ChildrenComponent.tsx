@@ -169,7 +169,7 @@ function ChildrenComponent({
 
       {/*  bottom dragPlate */}
       {window.innerWidth > 768 && (
-        <div className={cn(isVisible ? "md:block" : "md:hidden md")}>
+        <div className={cn(isVisible ? "md:block" : "md:hidden")}>
           <div
             onAnimationEnd={handleTransitionEnd}
             style={{
