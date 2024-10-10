@@ -50,6 +50,7 @@ function ChildrenComponent({
 }) {
   const [dragPlateIsActive, setDragPlateIsActive] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState<boolean>(false);
   const playgroundIsActive: boolean = useSelector(
     (state: RootState) => state.playgroud.isActive
   );
@@ -60,6 +61,7 @@ function ChildrenComponent({
   const pathname = usePathname();
   const controls = useAnimation(); // Hook to control the animation
 
+  // when pathname changes
   useEffect(() => {
     if (pathname === "/") {
       setIsVisible(false);
@@ -79,11 +81,11 @@ function ChildrenComponent({
           ease: "backInOut",
         },
       });
-
       // Reset rotation to 0 after animation completes
       controls.set({ rotate: 0 });
     };
     animate();
+    setIsClient(true);
   });
 
   // funtion for toggle theme
@@ -168,7 +170,7 @@ function ChildrenComponent({
       {/* ---------------------- */}
 
       {/*  bottom dragPlate */}
-      {window.innerWidth > 768 && (
+      {isClient && window.innerWidth > 768 && (
         <div className={cn(isVisible ? "md:block" : "md:hidden")}>
           <div
             onAnimationEnd={handleTransitionEnd}
