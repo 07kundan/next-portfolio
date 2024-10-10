@@ -3,6 +3,7 @@ import playgroundSlice from "./features/playground.slice";
 import svgPositionSlice from "./features/svgPosition.slice";
 import themeSlice from "./features/theme.slice";
 
+// Global state
 export const makeStore = () => {
   return configureStore({
     reducer: {

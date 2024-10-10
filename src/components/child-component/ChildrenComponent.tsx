@@ -19,6 +19,9 @@ import { BsFillMoonStarsFill } from "react-icons/bs";
 import { BsSunFill } from "react-icons/bs";
 import { ImGithub } from "react-icons/im";
 
+// Wrapper Component for Children
+
+// Social Media links
 const IconsLinks = [
   {
     Icon: <CgMail className="text-red-600 text-2xl md:text-3xl" />,
@@ -83,6 +86,7 @@ function ChildrenComponent({
     animate();
   });
 
+  // funtion for toggle theme
   const handleTheme = async () => {
     if (theme === "dark") {
       dispatch(toggleTheme("light"));
@@ -102,10 +106,12 @@ function ChildrenComponent({
     controls.set({ rotate: 0 });
   };
 
+  // toggle Bottom Drage-Plate
   const handleToggle = () => {
     setDragPlateIsActive((prev) => !prev);
   };
 
+  //Setting updatedd SVG position
   const handleTransitionEnd = () => {
     // console.log("Transition ended");
     dispatch(toggleTriggered());
@@ -132,7 +138,6 @@ function ChildrenComponent({
       </span>
 
       {/* social media links */}
-
       <div className="fixed right-2 md:right-5 bottom-8 space-y-3 group/links pointer-events-auto">
         <span className="w-0.5 md:w-1 h-[75vh]  bg-[#4ebe03] md:bg-[#5d704f]/60 group-hover/links:bg-[#4ebe03] absolute bottom-full right-1/2 translate-x-1/2 md:opacity-15 rounded-full group-hover/links:transition-all group-hover/links:opacity-100 dark:bg-[#313640] md:dark:bg-[#7792c9] dark:group-hover/links:bg-[#313640]"></span>
         <span className="w-0.5 md:w-1 h-8 bg-[#4ebe03] dark:bg-[#313640] absolute -bottom-8 right-1/2 translate-x-1/2 "></span>
@@ -160,78 +165,88 @@ function ChildrenComponent({
           </motion.button>
         </IconContext.Provider>
       </div>
+      {/* ---------------------- */}
 
       {/*  bottom dragPlate */}
-      <div className={cn(isVisible ? "block" : "hidden")}>
-        <div
-          onAnimationEnd={handleTransitionEnd}
-          style={{
-            transitionProperty: "all",
-            transitionTimingFunction: dragPlateIsActive ? "linear" : "linear",
-            transitionDuration: "300ms",
-            transitionDelay: dragPlateIsActive ? "0s" : "100ms",
-            // backdropFilter: "blur(10px)", // Adding blur effect
-          }}
-          className={cn(
-            dragPlateIsActive
-              ? "h-[48vh] md:h-[50vh] rounded-md bg-[#AFD198]/20 dark:bg-[#181b22]/30 pointer-events-auto outline outline-[#6d885b]/50 dark:outline-[#252a35]/50 backdrop-blur-sm"
-              : "h-[5vh] backdrop-blur-0",
-            "absolute bottom-0 left-1/2 -translate-x-1/2 w-full md:w-[25vw] flex items-end z-10"
-          )}
-        >
-          {/* top button */}
-          <button
-            onClick={handleToggle}
+      {window.innerWidth > 768 && (
+        <div className={cn(isVisible ? "md:block" : "md:hidden md")}>
+          <div
+            onAnimationEnd={handleTransitionEnd}
             style={{
               transitionProperty: "all",
-              transitionTimingFunction: "cubicBezier(0.4, 0, 0.2, 1)",
+              transitionTimingFunction: dragPlateIsActive ? "linear" : "linear",
               transitionDuration: "300ms",
+              transitionDelay: dragPlateIsActive ? "0s" : "100ms",
+              // backdropFilter: "blur(10px)", // Adding blur effect
             }}
             className={cn(
               dragPlateIsActive
-                ? "rounded-none rounded-es-lg rounded-ee-lg"
-                : "rounded-none rounded-ss-lg rounded-se-lg ",
-              "w-1/2 md:w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2 bg-[#AFD198] dark:bg-[#181b22] pointer-events-auto outline outline-[#6d885b] dark:outline-[#252a35]"
+                ? "h-[48vh] md:h-[50vh] rounded-md bg-[#AFD198]/20 dark:bg-[#181b22]/30 pointer-events-auto outline outline-[#6d885b]/50 dark:outline-[#252a35]/50 backdrop-blur-sm"
+                : "h-[5vh] backdrop-blur-0",
+              "absolute bottom-0 left-1/2 -translate-x-1/2 w-full md:w-[25vw] flex items-end z-10"
             )}
           >
-            <div
+            {/* top button */}
+            <button
+              onClick={handleToggle}
               style={{
                 transitionProperty: "all",
                 transitionTimingFunction: "cubicBezier(0.4, 0, 0.2, 1)",
-                transitionDuration: "400ms",
-              }}
-              className={cn(dragPlateIsActive ? "rotate-180" : "-rotate-0")}
-            >
-              <IoIosArrowUp className="text-2xl" />
-            </div>
-          </button>
-
-          <div
-            style={{
-              transitionProperty: "all",
-              transitionTimingFunction: dragPlateIsActive
-                ? "step-end"
-                : "linear",
-              transitionDuration: "300ms",
-            }}
-            className={cn(
-              dragPlateIsActive ? "opacity-100" : "opacity-0",
-              "h-[44vh] w-full flex items-center justify-center "
-            )}
-          >
-            <div
-              style={{
-                transform: dragPlateIsActive ? "rotate(0deg)" : "rotate(90deg)",
-                transitionDelay: dragPlateIsActive ? "280ms" : "0s",
                 transitionDuration: "300ms",
               }}
+              className={cn(
+                dragPlateIsActive
+                  ? "rounded-none rounded-es-lg rounded-ee-lg"
+                  : "rounded-none rounded-ss-lg rounded-se-lg ",
+                "w-1/2 md:w-2/5 h-[5vh] flex justify-center items-center absolute top-0 left-1/2 -translate-x-1/2 bg-[#AFD198] dark:bg-[#181b22] pointer-events-auto outline outline-[#6d885b] dark:outline-[#252a35]"
+              )}
             >
-              <DragPlate className="w-[38vh] h-[38vh] md:w-[38vh] md:h-[38vh] bg-[#AFD198]/50 dark:bg-[#073140]/50 outline outline-2 outline-[#637c52]/60 font-semibold dark:outline-[#045674]/80 " />
+              <div
+                style={{
+                  transitionProperty: "all",
+                  transitionTimingFunction: "cubicBezier(0.4, 0, 0.2, 1)",
+                  transitionDuration: "400ms",
+                }}
+                className={cn(dragPlateIsActive ? "rotate-180" : "-rotate-0")}
+              >
+                <IoIosArrowUp className="text-2xl" />
+              </div>
+            </button>
+
+            <div
+              style={{
+                transitionProperty: "all",
+                transitionTimingFunction: dragPlateIsActive
+                  ? "step-end"
+                  : "linear",
+                transitionDuration: "300ms",
+              }}
+              className={cn(
+                dragPlateIsActive ? "opacity-100" : "opacity-0",
+                "h-[44vh] w-full flex items-center justify-center "
+              )}
+            >
+              <div
+                style={{
+                  transform: dragPlateIsActive
+                    ? "rotate(0deg)"
+                    : "rotate(90deg)",
+                  transitionDelay: dragPlateIsActive ? "280ms" : "0s",
+                  transitionDuration: "300ms",
+                }}
+              >
+                <DragPlate
+                  className={cn(
+                    "w-[38vh] h-[38vh] md:w-[38vh] md:h-[38vh] bg-[#AFD198]/50 dark:bg-[#073140]/50 outline outline-2 outline-[#637c52]/60 font-semibold dark:outline-[#045674]/80 "
+                  )}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
+      {/* NaveBar-Components */}
       <Navbar
         className={cn(
           playgroundIsActive
@@ -243,7 +258,7 @@ function ChildrenComponent({
         pathname={pathname}
       />
 
-      {/* page.tsx */}
+      {/* Page-Components */}
       <div
         className={cn(
           playgroundIsActive ? "md:mx-[3vw]" : "md:mx-[6vw]",

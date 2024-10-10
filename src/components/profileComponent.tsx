@@ -14,6 +14,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Playpen, ubuntu } from "@/app/fonts/fonts";
 
+// TODO -; fetch the data from Sanity
+
+// Social-Media Links
 const Links = [
   {
     icon: <FaGithub />,
@@ -48,6 +51,7 @@ const keyPoints = [
   },
 ];
 
+// Profile Page Component
 function ProfileComponent() {
   return (
     <>

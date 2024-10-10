@@ -16,9 +16,11 @@ import { MdFeedback } from "react-icons/md";
 import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
 import { ubuntu } from "@/app/fonts/fonts";
 
+// Page/Main component
 function FeedbackComponent() {
   const [messages, setMessages] = useState<SanityDocument[]>([]);
 
+  // fetching feedback data
   useEffect(() => {
     // Fetch initial data
     const fetchData = async () => {
@@ -29,7 +31,6 @@ function FeedbackComponent() {
     };
 
     fetchData();
-
     // Listen for real-time updates
     const subscription = client
       .listen(`*[_type == "feedbacks"]`)
@@ -59,8 +60,8 @@ function FeedbackComponent() {
         <span className=" text-3xl text-[#DD5746]">|</span>
         <MdFeedback className="text-xl" />
       </HeadComponent>
-      <div className="h-full pt-20 pb-16 px-4 md:p-3 gap-4 md:flex ">
-        <div className="h-[45%] md:h-full md:w-2/3  p-4">
+      <div className="h-full pt-20 pb-16 px-4 md:p-3 gap-4 md:gap-0 md:flex">
+        <div className="h-[45%] md:h-full md:w-2/3  p-4 md:p-0 md:py-4 md:pl-7">
           {messages.length === 0 ? (
             <div
               className={cn(
@@ -83,11 +84,11 @@ function FeedbackComponent() {
     </>
   );
 }
+// --------------------
 
 export default FeedbackComponent;
 
-// cards subcomponent
-
+// Feedback cards subcomponent
 function Cards({ messages }: { messages: SanityDocument[] }) {
   return (
     <div className=" p-3">
@@ -106,8 +107,9 @@ function Cards({ messages }: { messages: SanityDocument[] }) {
     </div>
   );
 }
+// --------------------------
 
-// Zod schema for validation
+// Zod schema for feedback validation
 const formSchema = z
   .object({
     identification: z.string().nonempty("Please select identification"),
@@ -133,6 +135,7 @@ type data = {
   identification: string;
 };
 
+// feedback component
 function WriteFeedback() {
   // react-hook-form setup with zod validation
   const {
@@ -160,9 +163,6 @@ function WriteFeedback() {
     const currentDate = new Date().toDateString();
 
     const { message, name, identification } = data;
-    // console.log("submitting", data);
-    // console.log(typeof identification, identification);
-    // console.log(identification === "Anonymous");
     const username = identification === "Anonymous" ? "Anonymous" : name;
     const newMessage = {
       _type: "feedbacks",
@@ -187,7 +187,7 @@ function WriteFeedback() {
     reset();
   };
 
-  // generating message using AI
+  // function for generating message using AI
   const generateMessage = async () => {
     const prompt = watch("message");
 

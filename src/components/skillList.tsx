@@ -12,6 +12,7 @@ import HeadComponent from "./headComponent";
 import { SiHyperskill } from "react-icons/si";
 import { FaTools } from "react-icons/fa";
 
+// Skills Section Page Component
 function SkillList({ data }: { data: skillSchema }) {
   const playgroundIsActive: Boolean = useSelector(
     (state: RootState) => state.playgroud.isActive

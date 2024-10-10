@@ -24,6 +24,9 @@ import { toggleTriggered } from "@/lib/features/svgPosition.slice";
 import { Playpen } from "@/app/fonts/fonts";
 import { toggleTheme } from "@/lib/features/theme.slice";
 
+// Playground Component, It is only visible for big screen.
+
+// Schema for validation for playground form.
 const formSchmea = z.object({
   answerBox: z
     .string()
@@ -87,6 +90,25 @@ type AnswerBoxNames =
   | "answerBox6"
   | "answerBox7";
 
+// Page/Main Component
+export default function PlayGroundComponent({
+  className,
+}: {
+  className: string;
+}) {
+  const playgroundIsActive: Boolean = useSelector(
+    (state: RootState) => state.playgroud.isActive
+  );
+  const dispatch = useDispatch();
+  return (
+    <SubComponent
+      className={className}
+      dispatch={dispatch}
+      playgroundIsActive={playgroundIsActive}
+    />
+  );
+}
+
 function SubComponent({
   className,
   dispatch,
@@ -100,6 +122,7 @@ function SubComponent({
   const [randomNum, setRandomNum] = useState<number>(1);
   const [message, setMessage] = useState<string>("");
 
+  // form Validation
   const form = useForm<z.infer<typeof formSchmea>>({
     resolver: zodResolver(formSchmea),
     defaultValues: {
@@ -146,6 +169,8 @@ function SubComponent({
     getRandomNumber();
     toSetGuessString();
   }, [dispatch]);
+
+  // OnSubmit
   const onSubmit = (values: z.infer<typeof formSchmea>) => {
     console.log("submitting");
     const typedString = values.answerBox;
@@ -163,7 +188,6 @@ function SubComponent({
   };
 
   // function for random character
-
   function handleRandomChar(e: any, field: any) {
     if (
       e.key === "Backspace" ||
@@ -183,9 +207,12 @@ function SubComponent({
       e.preventDefault();
     }
   }
+
+  // functiono for toggle playground
   function handleTogglePlayground() {
     dispatch(setIsActive());
   }
+
   const handleAnimationEnd = () => {
     dispatch(toggleTriggered());
   };
@@ -313,23 +340,5 @@ function SubComponent({
         </div>
       </div>
     </div>
-  );
-}
-
-export default function PlayGroundComponent({
-  className,
-}: {
-  className: string;
-}) {
-  const playgroundIsActive: Boolean = useSelector(
-    (state: RootState) => state.playgroud.isActive
-  );
-  const dispatch = useDispatch();
-  return (
-    <SubComponent
-      className={className}
-      dispatch={dispatch}
-      playgroundIsActive={playgroundIsActive}
-    />
   );
 }

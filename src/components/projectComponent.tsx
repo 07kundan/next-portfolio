@@ -6,6 +6,7 @@ import { FaProjectDiagram } from "react-icons/fa";
 import { BsProjector } from "react-icons/bs";
 import { ubuntu } from "@/app/fonts/fonts";
 
+// project cards detail
 const CardDetails = [
   {
     name: "Portfolio",
@@ -108,9 +109,9 @@ const CardDetails = [
   },
 ];
 
+// Memoized Component for project section
 const ProjectComponent = memo(function ProjectComponent() {
   // console.log("component was rendered at", new Date().toLocaleTimeString());
-
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     // Set the playback speed when the component mounts
@@ -154,6 +155,7 @@ const ProjectComponent = memo(function ProjectComponent() {
 
 export default ProjectComponent;
 
+// Project Card Sub-Component
 const ProjectCard = memo(function ProjectCard({
   name,
   description,

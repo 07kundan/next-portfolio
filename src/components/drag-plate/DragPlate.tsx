@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 
+// Drage-Plate Component
 function DragPlate({ className }: { className: string }) {
   const dragableArea = useRef<HTMLDivElement>(null);
   const [svgBounds, setSvgBounds] = useState<DOMRect[]>([]);

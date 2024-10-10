@@ -1,6 +1,7 @@
 "use client";
 import { HeroHighlight } from "../ui/hero-highlight";
 
+// Hero Background component
 export function HeroHighlightComponent({
   children,
   classname,

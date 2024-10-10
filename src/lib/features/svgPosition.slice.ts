@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// slice for position of dragplate
 const svgPositionSlice = createSlice({
   name: "svgPosition",
   initialState: {

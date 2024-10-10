@@ -2,6 +2,7 @@ import { ubuntu } from "@/app/fonts/fonts";
 import { cn } from "@/lib/utils";
 import React from "react";
 
+// header/Sideheader (Name of page Section)
 function HeadComponent({ children }: { children: React.ReactNode }) {
   return (
     <span

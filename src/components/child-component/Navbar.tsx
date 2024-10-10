@@ -7,6 +7,8 @@ import { FaProjectDiagram } from "react-icons/fa";
 import { FaRegMessage } from "react-icons/fa6";
 import { SiHyperskill } from "react-icons/si";
 
+// Navbar-Component
+
 const NavItems = [
   {
     name: "profile",

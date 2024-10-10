@@ -2,6 +2,7 @@ import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { AxiosError } from "axios";
 
+// to generate feedback using AI
 export async function POST(req: Request) {
   try {
     // console.log(req);

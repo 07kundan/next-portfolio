@@ -1,4 +1,4 @@
-// import "server-only";
+// Sanity CMS for manage content of Portfolio
 
 import { createClient, type QueryParams } from "next-sanity";
 import ImageUrlBuilder from "@sanity/image-url";
