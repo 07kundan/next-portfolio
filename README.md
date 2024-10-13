@@ -7,13 +7,13 @@ The porfolio is automatically deployed to Vercel whenever changes are pushed to 
 ## Screenshots
 
 **Drag button:**
-![Home](../next-portfolio/public/DragSS.png)
+![Home](/public/DragSS.png)
 
 **Profile Page :**
-![Profile](../next-portfolio/public/ProfileSS.png)
+![Profile](/public/ProfileSS.png)
 
 **Feedback :**
-![cleverbooks hero](../next-portfolio/public/FeedbackSS.png)
+![cleverbooks hero](/public/FeedbackSS.png)
 
 ## Technologies Used:
 
