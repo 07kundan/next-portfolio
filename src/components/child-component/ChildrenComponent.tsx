@@ -61,6 +61,11 @@ function ChildrenComponent({
   const pathname = usePathname();
   const controls = useAnimation(); // Hook to control the animation
 
+  // setting default theme
+  useEffect(() => {
+    dispatch(toggleTheme(""));
+  }, []);
+
   // when pathname changes
   useEffect(() => {
     if (pathname === "/") {

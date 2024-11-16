@@ -1,7 +1,8 @@
 import ProfileComponent from "@/components/profileComponent";
 import React from "react";
 
-function page() {
+async function page() {
+  // const content = await
   return <ProfileComponent />;
 }
 
